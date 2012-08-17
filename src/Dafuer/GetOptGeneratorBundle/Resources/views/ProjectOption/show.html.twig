@@ -1,0 +1,41 @@
+<h1>ProjectOption</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Shortname</th>
+            <td>{{ entity.shortName }}</td>
+        </tr>
+        <tr>
+            <th>Longname</th>
+            <td>{{ entity.longName }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ entity.description }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('projectoption') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('projectoption_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('projectoption_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

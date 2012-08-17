@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo rm -rf app/cache/*
+sudo rm -rf app/logs/*
+sudo setfacl -R -m u:www-data:rwx -m u:david:rwx app/cache app/logs
+sudo setfacl -dR -m u:www-data:rwx -m u:david:rwx app/cache app/logs

@@ -1,0 +1,30 @@
+project:
+    pattern:  /
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:index" }
+
+project_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:show" }
+
+project_new:
+    pattern:  /new
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:new" }
+
+project_create:
+    pattern:  /create
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:create" }
+    requirements: { _method: post }
+
+project_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:edit" }
+
+project_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:update" }
+    requirements: { _method: post }
+
+project_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:delete" }
+    requirements: { _method: post }

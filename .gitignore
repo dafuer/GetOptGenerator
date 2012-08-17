@@ -1,0 +1,9 @@
+nbproject/private/
+web/bundles/
+app/bootstrap
+app/cache/*
+app/logs/*
+vendor/
+app/config/parameters.ini
+app/config/parameters.yml
+src/GOA/*/Model/*/*
