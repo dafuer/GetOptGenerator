@@ -1,19 +1,23 @@
-<h1>Project creation</h1>
+{% extends "DafuerGetOptGeneratorBundle::layout.html.twig" %}
 
-<form action="{{ path('project_create') }}" method="post" {{ form_enctype(form) }}>
+
+{% block bundle_content %}
+<h1>New Project</h1>
+
+<form action="{{ path('DafuerGetOptGeneratorBundle_project_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
-        
-
 
     <p>
-        <button type="submit">Create</button>
+        <button class="btn btn-success" type="submit">Create</button>
     </p>
 </form>
 
+{#
 <ul class="record_actions">
     <li>
-        <a href="{{ path('project') }}">
+        <a href="{{ path('DafuerGetOptGeneratorBundle_project') }}">
             Back to the list
         </a>
     </li>
-</ul>
+</ul>#}
+{% endblock %}

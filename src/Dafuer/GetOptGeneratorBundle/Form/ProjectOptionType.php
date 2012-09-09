@@ -14,7 +14,6 @@ class ProjectOptionType extends AbstractType
             ->add('shortName')
             ->add('longName')
             ->add('description')
-            ->add('project')
         ;
     }
 

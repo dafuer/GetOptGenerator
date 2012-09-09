@@ -1,7 +1,25 @@
-parameters:
+#parameters:
 #    dafuer_get_opt_generator.example.class: Dafuer\GetOptGeneratorBundle\Example
 
-services:
+#services:
 #    dafuer_get_opt_generator.example:
 #        class: %dafuer_get_opt_generator.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+services:
+    mopa_bootstrap.example.navbar:
+        class: %mopa_bootstrap.navbar.generic%
+        arguments:
+            # first argument: a named array of menues:
+            - {}
+            #- { leftmenu: @mopa_bootstrap.examplemenu=, rightmenu: @mopa_bootstrap.exampledropdown= }
+            #- {}
+            - { searchform: Dafuer\GetOptGeneratorBundle\Form\NavbarType  }
+            # second argument: a named array of FormType Classes  
+            #- { searchform: Dafuer\GetOptGeneratorBundle\Form\NavbarType }
+            # third argument: a named array of options
+            - { title: "  GetOpt Generator", titleRoute: "DafuerGetOptGeneratorBundle_homepage", fixedTop: false, isFluid: false, template:DafuerGetOptGeneratorBundle:Navbar:navbar.html.twig } 
+#MopaBootstrapBundle DafuerGetOptGeneratorBundle 
+        tags:
+            # The alias is used to retrieve the navbar in templates
+            - { name: mopa_bootstrap.navbar, alias: frontendNavbar }

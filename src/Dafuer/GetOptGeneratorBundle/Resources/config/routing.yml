@@ -1,6 +1,14 @@
 DafuerGetOptGeneratorBundle_homepage:
     pattern:  /
     defaults: { _controller: DafuerGetOptGeneratorBundle:Default:index }
+    
+DafuerGetOptGeneratorBundle_moreinformation:
+    pattern:  /more-information
+    defaults: { _controller: DafuerGetOptGeneratorBundle:Default:moreinformation }
+
+DafuerGetOptGeneratorBundle_start:
+    pattern:  /start
+    defaults: { _controller: DafuerGetOptGeneratorBundle:Default:start }
 
 DafuerGetOptGeneratorBundle_project:
     resource: "@DafuerGetOptGeneratorBundle/Resources/config/routing/project.yml"

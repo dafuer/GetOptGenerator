@@ -3,15 +3,15 @@
 namespace Dafuer\GetOptGeneratorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Dafuer\GetOptGeneratorBundle\Util\Util;
 /**
  * Dafuer\GetOptGeneratorBundle\Entity\Project
  *
- * @ORM\Table()
+ * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="Dafuer\GetOptGeneratorBundle\Entity\ProjectRepository")
  */
-class Project
-{
+class Project {
+
     /**
      * @var integer $id
      *
@@ -20,33 +20,41 @@ class Project
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @var string $name
      *
      * @ORM\Column( type="string", length=255)
-     */    
+     */
     private $name;
-    
+
     /**
      * @var string $slug
      *
      * @ORM\Column( type="string", length=255)
-     */    
+     */
     private $slug;
-
-
-
+    
+    /**
+     * @var string $description
+     *
+     * @ORM\Column( type="string", length=255)
+     */
+    private $description;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Dafuer\GetOptGeneratorBundle\Entity\User", inversedBy="projects", cascade={"persist"}) 
+     */
+    private $user;
+    
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
-    
 
     /**
      * Set name
@@ -54,10 +62,9 @@ class Project
      * @param string $name
      * @return Project
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
+        $this->slug = Util::getSlug($name);
         return $this;
     }
 
@@ -66,8 +73,7 @@ class Project
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -77,10 +83,9 @@ class Project
      * @param string $slug
      * @return Project
      */
-    public function setSlug($slug)
-    {
+    public function setSlug($slug) {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
@@ -89,19 +94,84 @@ class Project
      *
      * @return string 
      */
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
     }
 
     /**
-    * @ORM\OneToMany(targetEntity="ProjectOption", mappedBy="project")
-    */
+     * @ORM\OneToMany(targetEntity="ProjectOption", mappedBy="project", cascade={"persist"} )
+     */
     protected $projectOptions;
-    
 
-    
-    public function convert(){
+    public function convert() {
         
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->projectOptions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add projectOptions
+     *
+     * @param Dafuer\GetOptGeneratorBundle\Entity\ProjectOption $projectOptions
+     * @return Project
+     */
+    public function addProjectOption(\Dafuer\GetOptGeneratorBundle\Entity\ProjectOption $projectOptions) {
+        $this->projectOptions[] = $projectOptions;
+
+        return $this;
+    }
+
+    /**
+     * Remove projectOptions
+     *
+     * @param Dafuer\GetOptGeneratorBundle\Entity\ProjectOption $projectOptions
+     */
+    public function removeProjectOption(\Dafuer\GetOptGeneratorBundle\Entity\ProjectOption $projectOptions) {
+        $this->projectOptions->removeElement($projectOptions);
+    }
+
+    /**
+     * Get projectOptions
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getProjectOptions() {
+        return $this->projectOptions;
+    }
+
+    /**
+     * 
+     */
+    public function __toString() {
+        return $this->getName();
+    }
+
+
+
+    /**
+     * Set user
+     *
+     * @param Dafuer\GetOptGeneratorBundle\Entity\User $user
+     * @return Project
+     */
+    public function setUser(\Dafuer\GetOptGeneratorBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return Dafuer\GetOptGeneratorBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

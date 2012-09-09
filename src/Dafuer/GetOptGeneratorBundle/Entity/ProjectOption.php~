@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Dafuer\GetOptGeneratorBundle\Entity\ProjectOption
  *
- * @ORM\Table()
+ * @ORM\Table(name="project_option")
  * @ORM\Entity(repositoryClass="Dafuer\GetOptGeneratorBundle\Entity\ProjectOptionRepository")
  */
 class ProjectOption
@@ -43,7 +43,7 @@ class ProjectOption
     private $description;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Dafuer\GetOptGeneratorBundle\Entity\Project", inversedBy="projectOptions") 
+     * @ORM\ManyToOne(targetEntity="Dafuer\GetOptGeneratorBundle\Entity\Project", inversedBy="projectOptions", cascade={"persist","remove"} )
      */
     private $project;
 
@@ -127,29 +127,85 @@ class ProjectOption
     {
         return $this->description;
     }
+
+
+    /**
+     * 
+     */
+    public function __toString(){
+        return $this->getLongName();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 
     /**
      * Set project
      *
-     * @param Dafuer\GetOptGenerator\Entity\Project $project
+     * @param Dafuer\GetOptGeneratorBundle\Entity\Project $project
      * @return ProjectOption
      */
-    public function setProject(\Dafuer\GetOptGenerator\Entity\Project $project = null)
+    public function setProject(\Dafuer\GetOptGeneratorBundle\Entity\Project $project = null)
     {
         $this->project = $project;
-    
         return $this;
     }
 
     /**
      * Get project
      *
-     * @return Dafuer\GetOptGenerator\Entity\Project 
+     * @return Dafuer\GetOptGeneratorBundle\Entity\Project 
      */
     public function getProject()
     {
         return $this->project;
+    }
+    public function __construct()
+    {
+        $this->project = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add project
+     *
+     * @param Dafuer\GetOptGeneratorBundle\Entity\Project $project
+     * @return ProjectOption
+     */
+    public function addProject(\Dafuer\GetOptGeneratorBundle\Entity\Project $project)
+    {
+        $this->project[] = $project;
+        return $this;
+    }
+
+    /**
+     * Remove project
+     *
+     * @param Dafuer\GetOptGeneratorBundle\Entity\Project $project
+     */
+    public function removeProject(\Dafuer\GetOptGeneratorBundle\Entity\Project $project)
+    {
+        $this->project->removeElement($project);
     }
 }

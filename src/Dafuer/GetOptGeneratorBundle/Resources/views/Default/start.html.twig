@@ -1,0 +1,26 @@
+{% extends "DafuerGetOptGeneratorBundle::layout.html.twig" %}
+
+
+{% block bundle_content %}
+
+<center>
+<h1>GetOpt Generator</h1>
+</center>
+
+<BR/><BR/><BR/>
+You haven't logged in. Log in using top menu. If you don't have account, maybe you can choose register. <b>It's free</b> and it have the advantage that you can save your projects. 
+In any case, if you want to try GetOptGenerator without register (I kwnow it's bored) you can do it but you must remember you can't save your changes.
+
+<BR/><BR/>
+
+<center>
+<a href="{{ path('DafuerGetOptGeneratorBundle_project_new') }}" class="btn btn-success btn-large">
+    <i class="icon-caret-left"></i> 
+    Try 
+    <i class="icon-caret-right"></i>
+</a>
+</center>
+
+<BR/><BR/>
+
+{% endblock %}

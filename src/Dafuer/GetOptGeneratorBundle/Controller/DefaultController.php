@@ -10,4 +10,19 @@ class DefaultController extends Controller
     {
         return $this->render('DafuerGetOptGeneratorBundle:Default:index.html.twig', array());
     }
+    
+    public function moreinformationAction()
+    {
+        return $this->render('DafuerGetOptGeneratorBundle:Default:moreinformation.html.twig', array());
+    }
+    
+    public function startAction()
+    {
+        if($this->get('security.context')->isGranted('ROLE_USER')){
+            return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project'));
+        }else{
+            return $this->render('DafuerGetOptGeneratorBundle:Default:start.html.twig', array());
+        }
+    }
+    
 }

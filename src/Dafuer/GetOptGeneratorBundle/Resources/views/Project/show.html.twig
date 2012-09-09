@@ -1,22 +1,64 @@
-<h1>Project</h1>
+{% extends "DafuerGetOptGeneratorBundle::layout.html.twig" %}
 
-<table class="record_properties">
+
+{% block bundle_content %}
+<h1>{{ entity.name }}</h1>
+<h2>{{ entity.description }}</h2>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Shortname</th>
+            <th>Longname</th>
+            <th>Description</th>
+        </tr>
+    </thead>
     <tbody>
+    {% for option in entity.projectOptions %}
         <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
+            <td>{{ option.shortName }}</td>
+            <td>{{ option.longName }}</td>
+            <td>{{ option.description }}</td>
         </tr>
-        <tr>
-            <th>Name</th>
-            <td>{{ entity.name }}</td>
-        </tr>
-        <tr>
-            <th>Slug</th>
-            <td>{{ entity.slug }}</td>
-        </tr>
+    {% endfor %}
     </tbody>
 </table>
 
+<BR/>
+
+
+<pre>
+<h2>Source code generated in C</h2>
+  
+  {{ entity.getCSource }}
+</pre>
+{#
+<div style="text-align: center">
+        <a href="{{ path('project_edit', { 'id': entity.id }) }}"  class="btn btn-primary btn-large">
+            Generate C Source
+        </a>
+</div>#}
+
+
+<BR/><BR/><BR/>
+<div class="alert alert-info" style="text-align: right">
+        <a href="{{ path('DafuerGetOptGeneratorBundle_project') }}" class="btn btn-success">
+            <i class="icon-list-alt icon-white"></i> Back to the list
+        </a>
+        <a href="{{ path('DafuerGetOptGeneratorBundle_project_edit', { 'id': entity.id }) }}"  class="btn btn-warning">
+            <i class="icon-edit icon-white"></i> Edit
+        </a>
+        <a href=""  class="btn btn-danger">
+            <i class="icon-trash icon-white"></i> Delete
+        </a>
+        
+        {#<form action="{{ path('project_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>#}
+</div>
+{#
 <ul class="record_actions">
     <li>
         <a href="{{ path('project') }}">
@@ -31,7 +73,8 @@
     <li>
         <form action="{{ path('project_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     </li>
-</ul>
+</ul>#}
+{% endblock %}
