@@ -10,6 +10,9 @@ use Mopa\Bundle\BootstrapBundle\Navbar\NavbarFormInterface;
 
 class NavbarType extends AbstractType implements NavbarFormInterface{
 
+    
+    
+    
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->setAttribute('render_fieldset', false)
@@ -32,6 +35,7 @@ class NavbarType extends AbstractType implements NavbarFormInterface{
                     'class' => "input-small search-query"
                 )
             ))    
+            ->add('_csrf_token','text',array('data' => 'Default value'))
             
                 ;
     }
@@ -43,7 +47,7 @@ class NavbarType extends AbstractType implements NavbarFormInterface{
     }*/
 
     public function getName() {
-        return 'dafuer_getoptgeneratorbundle_navbartype';
+        return '';
     }
 
     
@@ -54,4 +58,13 @@ class NavbarType extends AbstractType implements NavbarFormInterface{
     {
         return "fos_user_security_check"; # return here the name of the route the form should point to
     }    
+
+   /*public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'csrf_field_name' => '_csrf_token',
+        ));
+    }    */
+    
+    
 }

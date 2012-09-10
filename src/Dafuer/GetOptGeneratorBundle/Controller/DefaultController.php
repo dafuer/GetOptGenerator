@@ -25,4 +25,12 @@ class DefaultController extends Controller
         }
     }
     
+   /* public function compactloginAction(){
+         $response= $this->forward('FOSUserBundle:Security:login');
+         
+         
+        return $response;
+       // return $this->render('DafuerGetOptGeneratorBundle:Default:moreinformation.html.twig');
+    }*/
+    
 }
