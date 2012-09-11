@@ -1,4 +1,11 @@
-{% if not app.user %}
+{% if app.user %}
+<a class="btn btn-inverse pull-right" href="{{ path('fos_user_security_logout') }}"><i class="icon-signout"></i></a>
+
+<ul class="nav pull-right">
+    <li><a>{{ app.user.username }}</a></li>
+</ul>
+
+{% else %}
 
     <form class="navbar-search pull-right" style="display: inline-block" action="{{ path("fos_user_security_check") }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
