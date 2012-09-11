@@ -13,8 +13,8 @@ services:
             # first argument: a named array of menues:
             - {}
             #- { leftmenu: @mopa_bootstrap.examplemenu=, rightmenu: @mopa_bootstrap.exampledropdown= }
-            #- {}
-            - { searchform: Dafuer\GetOptGeneratorBundle\Form\NavbarType  }
+            - {}
+            #- { searchform: Dafuer\GetOptGeneratorBundle\Form\NavbarType  }
             # second argument: a named array of FormType Classes  
             #- { searchform: Dafuer\GetOptGeneratorBundle\Form\NavbarType }
             # third argument: a named array of options
@@ -23,3 +23,4 @@ services:
         tags:
             # The alias is used to retrieve the navbar in templates
             - { name: mopa_bootstrap.navbar, alias: frontendNavbar }
+       

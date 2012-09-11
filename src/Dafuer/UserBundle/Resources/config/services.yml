@@ -1,0 +1,7 @@
+parameters:
+#    dafuer_user.example.class: Dafuer\UserBundle\Example
+
+services:
+#    dafuer_user.example:
+#        class: %dafuer_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

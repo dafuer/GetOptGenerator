@@ -19,8 +19,11 @@
                     {{ form_widget(form_view) }}
                             <input type="submit" value="" class="btn btn-inverse" style="visibility: hidden"></input>
                     </form>
-                    {# render 'FOSUserBundle:Security:login' with {'skin':'compact'} #}
+                    
                 {% endif %}
+                    
+                 
+                {% render 'FOSUserBundle:Security:login' with {'skin':'compact'} %}
                 {{ navbar.hasMenu('rightmenu') ? knp_menu_render(navbar.getMenu('rightmenu'), {'currentClass': 'active', 'ancestorClass': 'active', 'allow_safe_labels': 'true'}) : '' }}
             </div>
 

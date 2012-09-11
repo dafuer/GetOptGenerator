@@ -1,0 +1,16 @@
+{% if not app.user %}
+
+    <form class="navbar-search pull-right" style="display: inline-block" action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <input style="margin-bottom: 0px" class="input-small search-query not-removable" placeholder="username" type="text" id="username" name="_username" value="{{ last_username }}" />
+
+        <input style="margin-bottom: 0px" class="input-small search-query not-removable" placeholder="password" type="password" id="password" name="_password" />
+
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on" checked="true" style="display:none"/>
+
+        <button  class="btn btn-inverse" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" ><i class=" icon-signin"></i></button>
+
+    </form>
+
+{% endif %}
