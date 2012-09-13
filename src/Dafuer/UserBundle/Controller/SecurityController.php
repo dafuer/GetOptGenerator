@@ -25,7 +25,7 @@ class SecurityController extends BaseController {
         
         $skin=$request->attributes->get('skin','normal');
         
-        if($skin=='normal')  $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
+        if($skin=='normal')  $template = $template = sprintf('FOSUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
 
         if($skin=='compact') $template = 'DafuerUserBundle:Security:logincompact.html.twig';
            
