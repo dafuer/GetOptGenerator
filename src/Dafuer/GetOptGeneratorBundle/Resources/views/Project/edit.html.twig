@@ -19,9 +19,13 @@
 
 {% block bundle_content %}
 
-        
+<form action="{{ path('DafuerGetOptGeneratorBundle_project_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>        
 {% include 'DafuerGetOptGeneratorBundle:Project:_form.html.twig' with {'edit_form': edit_form} %}        
-        
+     {{ form_rest(edit_form) }}
+    <p>
+        <button class="btn btn-success" type="submit">Edit</button>
+    </p> 
+</form>       
 <ul class="record_actions">
     <li>
         <a href="{{ path('DafuerGetOptGeneratorBundle_project') }}" >

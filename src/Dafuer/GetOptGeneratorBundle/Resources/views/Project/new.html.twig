@@ -13,12 +13,10 @@
 {% endblock form_row %}
 
 {% block bundle_content %}
-        
+ 
+<form action="{{ path('DafuerGetOptGeneratorBundle_project_create') }}" method="post" {{ form_enctype(edit_form) }}>
 {% include 'DafuerGetOptGeneratorBundle:Project:_form.html.twig' with {'edit_form': form} %}  
         
-<form action="{{ path('DafuerGetOptGeneratorBundle_project_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-
     <p>
         <button class="btn btn-success" type="submit">Create</button>
     </p>
