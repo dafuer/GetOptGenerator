@@ -1914,7 +1914,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               options.collection_id = collection_id;
           }
           else{
-              options.collection_id = '#'+this.id;
+        	  options.collection_id = this.id.length === 0 ? '' : '#' + this.id;
           }
           if (!data){
               $this.data('collection', (data = new Collection(this, options)));

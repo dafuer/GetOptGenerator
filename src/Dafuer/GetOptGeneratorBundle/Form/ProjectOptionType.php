@@ -11,9 +11,24 @@ class ProjectOptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('shortName')
-            ->add('longName')
-            ->add('description')
+            ->add('shortName', null, array( 
+                'label_render' => false,
+                'attr'=>array('placeholder'=>'Short Name',
+                            'class'=>'collection-item'
+                    )
+            ))
+            ->add('longName', null, array( 
+                'label_render' => false,
+                'attr'=>array('placeholder'=>'Long Name',
+                            'class'=>'collection-item'
+                    )
+            ))
+            ->add('description', null, array( 
+                'label_render' => false,
+                'attr'=>array('placeholder'=>'Description',
+                            'class'=>'collection-item'
+                    )
+            ))
         ;
     }
 

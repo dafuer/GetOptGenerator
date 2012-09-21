@@ -124,29 +124,7 @@ class ProjectController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-    /**
-     * Displays a form to edit an existing Project entity.
-     *
-     */
-    public function edit2Action($id)
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Project entity.');
-        }
-
-        $editForm = $this->createForm(new ProjectType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('DafuerGetOptGeneratorBundle:Project:edit2.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Edits an existing Project entity.
