@@ -1964,6 +1964,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
 
 } ( window.jQuery );
 
+
 /*
  * moving subnavigation bar snapping to top on scroll
  * http://stackoverflow.com/questions/9179708/replicating-bootstraps-main-nav-and-subnav

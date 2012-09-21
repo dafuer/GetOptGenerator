@@ -28,7 +28,7 @@
         this.$element = $(element);
         this.options = $.extend({}, $.fn.collection.defaults, options);
 
-        var embeddedForms = 'div' + this.options.collection_id + ' .collection-item';
+        var embeddedForms = '' + this.options.collection_id + ' .collection-item';
         this.options.index = $(embeddedForms).length - 1;
     };
 
@@ -47,14 +47,17 @@
         },
         addPrototype: function(index) {
             var rowContent = $(this.options.collection_id).attr('data-prototype').replace(/__name__/g, index);
-            var row = $("<div />");
+            var last=$(rowContent).get(0).tagName;
+            //var row = $("<"+last+" />");
+            var row = $("<TR  id='dafuer_getoptgeneratorbundle_projecttype_projectOptions_"+index+"_control_group' />");
             row.html(rowContent);
-            $('div' + this.options.collection_id + '> .controls').append(row);
+            //alert(row.html());
+            $('' + this.options.collection_id + '> .controls').append(row);
             $(this.options.collection_id).trigger('add.mopa-collection-item', [row]);
         },
         remove: function () {
-                if (this.$element.parents('.collection-item').length !== 0){
-                    this.$element.parent('.collection-item').remove();
+                if (this.$element.parents('td').parents('tr').length !== 0){
+                    this.$element.parent('td').parent('tr').remove();
                 }
         }
 

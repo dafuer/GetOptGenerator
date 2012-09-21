@@ -19,12 +19,19 @@
 {% block page_header %}{% endblock %}
 
 {% block content %}
-    <div class="hero-unit">
+
+    <div class="hero-unit" style="padding-top: 30px;">
+        <center>
+            <div class="page-header" style="border-bottom: 1px solid #862725;">
+                <h1>GetOpt Generator</h1>
+                <h2 style="color:gray">Easy way to start a C project</h2>
+            </div>         
+        </center>
         {% block bundle_content %}{% endblock %}
     </div>
 {% endblock %}
 
-{% block footer %}{% endblock footer %}
+{% block footer %}<div class="hero-unit" style="padding: 0.5em;">&nbsp;<span class="pull-right">Dafuer - 2012 &copy;</span></div>{% endblock footer %}
 
     {% block foot_script %}
     {# To only use a subset or add more js overwrite and copy paste this block
