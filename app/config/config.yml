@@ -92,3 +92,9 @@ mopa_bootstrap:
     initializr:
         google:
             analytics: UA-17161773-2
+            
+mopa_bootstrap:
+    form:
+        show_legend: false # default is true
+        show_child_legend: false # default is true
+        error_type: block # or inline which is default

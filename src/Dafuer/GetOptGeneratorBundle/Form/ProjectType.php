@@ -22,7 +22,7 @@ class ProjectType extends AbstractType {
                 ->add('description',null,array(
                     'label_render' => false,
                     'attr'=>array(
-                        'class'=>'input-xxlarge',
+                        'class'=>'input-xlarge',
                         'placeholder'=>'Description',
                         'style'=>'font-size:x-large; font-weight: bold; height:1.2em;margin-bottom: 0px'
                     )
