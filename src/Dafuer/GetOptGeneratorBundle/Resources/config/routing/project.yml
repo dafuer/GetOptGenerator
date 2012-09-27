@@ -18,6 +18,10 @@ DafuerGetOptGeneratorBundle_project_create:
     pattern:  /create
     defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:create" }
     requirements: { _method: post }
+
+DafuerGetOptGeneratorBundle_project_edit_session:
+    pattern:  /edit
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:edit", 'id':-1 }      
       
 DafuerGetOptGeneratorBundle_project_edit:
     pattern:  /{id}/edit

@@ -136,15 +136,34 @@ class ProjectController extends Controller
      * Displays a form to edit an existing Project entity.
      *
      */
-    public function editAction($id)
+    public function editAction($id=-1)
     {
-        $em = $this->getDoctrine()->getManager();
+        /*$em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Project entity.');
+        }*/
+        $session = $this->getRequest()->getSession();
+        $entity=null;        
+        
+        if($id==-1){
+            $entity=$session->get('project');
+        }else{
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
+
+            if($entity && $entity->getUser()->getId()!=$this->get('security.context')->getToken()->getUser()->getId()){
+                throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+            }          
         }
+        
+           
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Project entity.');
+        }        
 
         $editForm = $this->createForm(new ProjectType(), $entity);
         $deleteForm = $this->createDeleteForm($id);

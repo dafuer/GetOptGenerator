@@ -43,15 +43,25 @@
 
 <BR/><BR/><BR/>
 <div class="alert alert-info" style="text-align: right">
-        <a href="{{ path('DafuerGetOptGeneratorBundle_project') }}" class="btn btn-success">
+       {% if entity.user.id is not null %} 
+       <a href="{{ path('DafuerGetOptGeneratorBundle_project') }}" class="btn btn-success">
             <i class="icon-list-alt icon-white"></i> Back to the list
         </a>
-        <a href="{{ path('DafuerGetOptGeneratorBundle_project_edit', { 'id': entity.id }) }}"  class="btn btn-warning">
-            <i class="icon-edit icon-white"></i> Edit
-        </a>
-        <a href=""  class="btn btn-danger">
-            <i class="icon-trash icon-white"></i> Delete
-        </a>
+        {% endif %}
+        {% if entity.user.id is not null %}
+            <a href="{{ path('DafuerGetOptGeneratorBundle_project_edit', { 'id': entity.id }) }}"  class="btn btn-warning">
+                <i class="icon-edit icon-white"></i> Edit
+            </a>
+        {% else %}
+            <a href="{{ path('DafuerGetOptGeneratorBundle_project_edit_session' ) }}"  class="btn btn-warning">
+                <i class="icon-edit icon-white"></i> Edit
+            </a>
+        {% endif %}
+        {% if entity.user.id is not null %}
+            <a href=""  class="btn btn-danger">
+                <i class="icon-trash icon-white"></i> Delete
+            </a>
+        {% endif %}
         
         {#<form action="{{ path('project_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
