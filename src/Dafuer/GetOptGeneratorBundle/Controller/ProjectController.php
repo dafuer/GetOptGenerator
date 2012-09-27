@@ -2,9 +2,10 @@
 
 namespace Dafuer\GetOptGeneratorBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Dafuer\GetOptGeneratorBundle\Entity\User;
 use Dafuer\GetOptGeneratorBundle\Entity\Project;
 use Dafuer\GetOptGeneratorBundle\Form\ProjectType;
 
@@ -38,12 +39,19 @@ class ProjectController extends Controller
      * Finds and displays a Project entity.
      *
      */
-    public function showAction($id)
+    public function showAction($id=-1)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
-
+        $session = $this->getRequest()->getSession();
+        $entity=null;
+        
+        
+        if($id==-1){
+            $entity=$session->get('project');
+        }else{
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
+        }
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Project entity.');
         }
@@ -76,24 +84,41 @@ class ProjectController extends Controller
      */
     public function createAction(Request $request)
     {
+        $user=$this->get('security.context')->getToken()->getUser();
+        
+        $formOptions=array();
+        
+        if($user=="anon."){
+            $user=new User();
+            $formOptions['csrf_protection']=false;
+        }           
+        
         $entity  = new Project();
         
-        $form = $this->createForm(new ProjectType(), $entity);
-        $form->bind($request);
+        $form = $this->createForm(new ProjectType(), $entity, $formOptions);
+        $form->bind($request);   
         
-        $entity->setUser($this->get('security.context')->getToken()->getUser());
-        
+        $entity->setUser($user);
+       
         foreach ($entity->getProjectOptions() as $option){
             $option->setProject($entity);
         }
         
+       
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project_show', array('id' => $entity->getId())));
+            if($user->getId()!=null){
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+                
+                return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project_show', array('id' => $entity->getId())));
+            }else{
+                $session = $this->getRequest()->getSession();
+                $session->set('project', $entity);
+                return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project_show_session', array('id' => $entity->getId())));
+            }
         }
+        //echo $form->getErrorsAsString();
 
         return $this->render('DafuerGetOptGeneratorBundle:Project:new.html.twig', array(
             'entity' => $entity,

@@ -2,6 +2,10 @@ DafuerGetOptGeneratorBundle_project:
     pattern:  /
     defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:index" }
 
+DafuerGetOptGeneratorBundle_project_show_session:
+    pattern:  /show
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:show", 'id':-1 }
+
 DafuerGetOptGeneratorBundle_project_show:
     pattern:  /{id}/show
     defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:show" }
