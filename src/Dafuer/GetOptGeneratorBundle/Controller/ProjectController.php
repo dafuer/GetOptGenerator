@@ -17,7 +17,7 @@ class ProjectController extends Controller
 {
     /**
      * Lists all Project entities.
-     *
+     * (securized)
      */
     public function indexAction()
     {
@@ -37,20 +37,26 @@ class ProjectController extends Controller
 
     /**
      * Finds and displays a Project entity.
-     *
+     * (securized)
      */
     public function showAction($id=-1)
     {
-        $session = $this->getRequest()->getSession();
-        $entity=null;
         
+        $session = $this->getRequest()->getSession();
+        $entity=null;        
         
         if($id==-1){
             $entity=$session->get('project');
         }else{
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
+
+            if($entity && $entity->getUser()->getId()!=$this->get('security.context')->getToken()->getUser()->getId()){
+                throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+            }          
         }
+        
+           
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Project entity.');
