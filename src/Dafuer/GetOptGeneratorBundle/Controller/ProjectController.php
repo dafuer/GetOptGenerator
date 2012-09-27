@@ -134,7 +134,7 @@ class ProjectController extends Controller
 
     /**
      * Displays a form to edit an existing Project entity.
-     *
+     * (securized)
      */
     public function editAction($id=-1)
     {
