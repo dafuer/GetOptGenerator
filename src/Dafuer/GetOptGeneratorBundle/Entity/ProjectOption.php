@@ -36,6 +36,13 @@ class ProjectOption
     private $longName;
 
     /**
+     * @var boolean $arguments
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $arguments;    
+    
+    /**
      * @var string $Description
      *
      * @ORM\Column(type="string", length=511)
@@ -207,5 +214,28 @@ class ProjectOption
     public function removeProject(\Dafuer\GetOptGeneratorBundle\Entity\Project $project)
     {
         $this->project->removeElement($project);
+    }
+
+    /**
+     * Set arguments
+     *
+     * @param boolean $arguments
+     * @return ProjectOption
+     */
+    public function setArguments($arguments)
+    {
+        $this->arguments = $arguments;
+    
+        return $this;
+    }
+
+    /**
+     * Get arguments
+     *
+     * @return boolean 
+     */
+    public function getArguments()
+    {
+        return $this->arguments;
     }
 }

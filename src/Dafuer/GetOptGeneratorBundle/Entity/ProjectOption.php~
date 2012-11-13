@@ -36,6 +36,13 @@ class ProjectOption
     private $longName;
 
     /**
+     * @var boolean $arguments
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $arguments;    
+    
+    /**
      * @var string $Description
      *
      * @ORM\Column(type="string", length=511)

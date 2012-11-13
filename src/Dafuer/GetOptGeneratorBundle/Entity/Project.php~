@@ -174,4 +174,126 @@ class Project {
     {
         return $this->user;
     }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Project
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    
+    /**
+     * Generate and return help function in C 
+     */
+    public function getCHelpCode(){
+        $result='';
+        
+        $result.='
+// Display help information
+void help(){
+        printf("'.$this->slug.' - '.$this->description.'\n");
+	printf("Options:\n\n");';
+        
+        foreach($this->projectOptions as $option){
+            $result.='
+        printf("-'.$option->getShortName().' --'.$option->getLongName().': '.$option->getDescription().'\n");';
+            
+        }
+        $result.='
+}';
+        
+ 
+        
+        return $result;
+    }
+    
+    
+    /**
+     * Generateand return main function 
+     */
+     public function getCMainCode(){
+        $result='';
+        
+        $result.='
+// Init function
+int main(int argc, char *argv[]){
+        read_options(argc,argv);
+}';
+        
+        
+        return $result;
+    }   
+    
+    
+    /**
+     * Generated global variables
+     */
+     public function getCGlobalVariablesCode(){
+        $result='';
+
+        
+        foreach($this->projectOptions as $option){
+            $result.='
+// Define getopt parameters like a vars
+char opt_'.Util::getSlug($option->getLongName()).' = 0;';
+            
+        }
+
+ 
+        
+        return $result;
+    }
+    
+    
+    /**
+     * Generated global variables
+     */
+     public function getReadOptionsCode(){
+        $result='';
+
+        
+        foreach($this->projectOptions as $option){
+            $result.='
+// This function read options and set up parameters
+void read_options(int argc, char *argv[]){
+int next_option;
+';
+            
+        }
+        
+        $result.='
+}';
+ 
+        
+        return $result;
+    }
+    
+    
+    /**
+     * Call al function to generate C sources
+     */
+    public function getCSource(){
+        return $this->getCGlobalVariablesCode().'
+'.$this->getCHelpCode().'
+'.$this->getReadOptionsCode().'
+'.$this->getCMainCode();
+    }
+    
 }
+
