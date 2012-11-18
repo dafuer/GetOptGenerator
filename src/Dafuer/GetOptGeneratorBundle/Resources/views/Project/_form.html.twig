@@ -2,19 +2,19 @@
     
     
     <BR/><BR/><BR/>
-{{ form_widget(edit_form.name, { 'attr': {'class': 'input-xxlarge', 'placeholder':'Project Name', 'style':'font-size:xx-large; font-weight: bold; height:40px'} }) }}
-{{ form_widget(edit_form.description, { 'attr': {'class': 'input-xxlarge', 'placeholder':'Description', 'style':'font-size:x-large; font-weight: bold; height:30px'} }) }}
+{{ form_widget(form.name, { 'attr': {'class': 'input-xxlarge', 'placeholder':'Project Name', 'style':'font-size:xx-large; font-weight: bold; height:40px'} }) }}
+{{ form_widget(form.description, { 'attr': {'class': 'input-xxlarge', 'placeholder':'Description', 'style':'font-size:x-large; font-weight: bold; height:30px'} }) }}
 <BR/><BR/><BR/>
     <a class="btn btn-primary" data-collection-add-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_control_group"><i class="icon-plus-sign icon-white"></i>
 Add Option
 </a>
-
-<BR/>
+<BR/><BR/>
+{{ form_errors(form) }}
 <h3><center><b>Option list</b></center></h3>
 {% set boton='<td><a class="btn btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions___name___control_group"><i class="icon-trash icon-white"></i>
                 Remove
                 </a></td>' %}
-    <table class="table table-striped optionProjects"  data-prototype="{{ form_widget(edit_form.projectOptions.vars.prototype)|e }}{{ boton|e }}" id="{{ edit_form.projectOptions.vars.id }}_control_group" class="collection-item">
+    <table class="table table-striped optionProjects"  data-prototype="{{ form_widget(form.projectOptions.vars.prototype)|e }}{{ boton|e }}" id="{{ form.projectOptions.vars.id }}_control_group" class="collection-item">
     <thead>
         <tr>
             <th>Shortname</th>
@@ -25,7 +25,7 @@ Add Option
         </tr>
     </thead>
     <tbody  class="controls">
-    {% for option in edit_form.projectOptions %}
+    {% for option in form.projectOptions %}
         <tr>
             <td>{{ form_widget(option.shortName) }}</td>
             <td>{{ form_widget(option.longName) }}</td>

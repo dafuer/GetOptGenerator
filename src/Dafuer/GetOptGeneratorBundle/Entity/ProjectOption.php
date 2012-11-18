@@ -24,7 +24,7 @@ class ProjectOption
     /**
      * @var string $ShortName
      *
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", length=1)
      */
     private $shortName;
 
@@ -47,7 +47,7 @@ class ProjectOption
      *
      * @ORM\Column(type="string", length=511)
      */
-    private $description;
+    private $description='';
     
     /**
      * @ORM\ManyToOne(targetEntity="Dafuer\GetOptGeneratorBundle\Entity\Project", inversedBy="projectOptions", cascade={"persist","remove"} )

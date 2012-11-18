@@ -1,0 +1,6 @@
+Dafuer\GetOptGeneratorBundle\Entity\Project:
+    getters:
+        repeatedShortOption:
+            - "False": { message: "Short options can not be repeated" }
+        repeatedLongOption:
+            - "False": { message: "Long options can not be repeated" }            

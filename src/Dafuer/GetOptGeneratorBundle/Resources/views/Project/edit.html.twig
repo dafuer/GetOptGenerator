@@ -2,7 +2,7 @@
 {% extends "DafuerGetOptGeneratorBundle::layout.html.twig" %}
 
 
-{% form_theme edit_form _self %}
+{% form_theme form _self %}
 
 {% block form_row %}
 {% spaceless %}
@@ -16,15 +16,15 @@
 
 {% block bundle_content %}
 
-<form  method="post" {{ form_enctype(edit_form) }}
+<form  method="post" {{ form_enctype(form) }}
         {% if entity.user.id is not null %}
             action="{{ path('DafuerGetOptGeneratorBundle_project_update', { 'id': entity.id }) }}"
         {% else %}
             action="{{ path('DafuerGetOptGeneratorBundle_project_update_session') }}"
         {% endif %}       
        >        
-{% include 'DafuerGetOptGeneratorBundle:Project:_form.html.twig' with {'edit_form': edit_form} %}        
-     {{ form_rest(edit_form) }}
+{% include 'DafuerGetOptGeneratorBundle:Project:_form.html.twig' with {'form': form} %}        
+     {{ form_rest(form) }}
     <p>
         <button class="btn btn-success" type="submit">Edit</button>
     </p> 

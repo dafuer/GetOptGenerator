@@ -14,7 +14,7 @@ class ProjectOptionType extends AbstractType
             ->add('shortName', null, array( 
                 'label_render' => false,
                 'attr'=>array('placeholder'=>'Short Name',
-                            'class'=>'collection-item'
+                            'class'=>'collection-item input-small'
                     )
             ))
             ->add('longName', null, array( 
@@ -32,6 +32,7 @@ class ProjectOptionType extends AbstractType
             )) 
             ->add('description', null, array( 
                 'label_render' => false,
+                'required'=>false,
                 'attr'=>array('placeholder'=>'Description',
                             'class'=>'collection-item'
                     )

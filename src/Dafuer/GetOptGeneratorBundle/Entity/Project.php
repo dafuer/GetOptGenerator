@@ -47,6 +47,41 @@ class Project {
      */
     private $user;
     
+    
+    /**
+     * Return true if the project has two o more options with same short name.
+     */
+    public function isRepeatedShortOption(){
+        $options=$this->getProjectOptions();
+        $key_options=array();
+        foreach($options as $option){
+            $key_options[$option->getShortName()]=1;
+        }
+        
+        if (count($options)==count($key_options)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    /**
+     * Return true if the project has two o more options with same long name.
+     */
+    public function isRepeatedLongOption(){
+        $options=$this->getProjectOptions();
+        $key_options=array();
+        foreach($options as $option){
+            $key_options[$option->getLongName()]=1;
+        }
+        
+        if (count($options)==count($key_options)){
+            return false;
+        }else{
+            return true;
+        }
+    }    
+    
     /**
      * Get id
      *

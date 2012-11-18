@@ -24,7 +24,7 @@ class ProjectOption
     /**
      * @var string $ShortName
      *
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", length=1)
      */
     private $shortName;
 
@@ -47,7 +47,7 @@ class ProjectOption
      *
      * @ORM\Column(type="string", length=511)
      */
-    private $description;
+    private $description='';
     
     /**
      * @ORM\ManyToOne(targetEntity="Dafuer\GetOptGeneratorBundle\Entity\Project", inversedBy="projectOptions", cascade={"persist","remove"} )
@@ -214,5 +214,28 @@ class ProjectOption
     public function removeProject(\Dafuer\GetOptGeneratorBundle\Entity\Project $project)
     {
         $this->project->removeElement($project);
+    }
+
+    /**
+     * Set arguments
+     *
+     * @param boolean $arguments
+     * @return ProjectOption
+     */
+    public function setArguments($arguments)
+    {
+        $this->arguments = $arguments;
+    
+        return $this;
+    }
+
+    /**
+     * Get arguments
+     *
+     * @return boolean 
+     */
+    public function getArguments()
+    {
+        return $this->arguments;
     }
 }
