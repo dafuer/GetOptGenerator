@@ -121,7 +121,7 @@ class ProjectController extends Controller
             }else{
                 $session = $this->getRequest()->getSession();
                 $session->set('project', $entity);
-                return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project_show_session', array('id' => $entity->getId())));
+                return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project_show_session'));
             }
         }
         //echo $form->getErrorsAsString();
@@ -180,25 +180,75 @@ class ProjectController extends Controller
      * Edits an existing Project entity.
      *
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id=-1)
     {
+        $user=$this->get('security.context')->getToken()->getUser();
+       
+        if ($user == "anon.") {
+            $user = new User();
+        }  
+        
+       // $em = $this->getDoctrine()->getManager();
+
+        //$entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
+        $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
+        $entity=null;        
+        
+        if($id==-1){
+            $entity=$session->get('project');
+        }else{
+            
+            $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
 
-        $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
+            if($entity && $entity->getUser()->getId()!=$user->getId()){
+                throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+            }          
+        }        
+        /*if($id!=-1){
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Project entity.');
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Project entity.');
+
+                if($entity && $entity->getUser()->getId()!=$this->get('security.context')->getToken()->getUser()->getId()){
+                    throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+                }              
+            }
+        }else{
+            $session = $this->getRequest()->getSession();
+            $session->set('project', $entity);
+        }*/
+
+        $old_project_options=$entity->getProjectOptions();
+        
+        // Remove old options
+        
+        foreach ($entity->getProjectOptions() as $option){
+            $em->remove($option);
         }
-
+        
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new ProjectType(), $entity);
         $editForm->bind($request);
 
+        foreach ($entity->getProjectOptions() as $option){
+            $option->setProject($entity);
+        }         
+        
         if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
+            if($user->getId()!=null){
+                $em->flush();
+                $em->persist($entity);
+                foreach ($entity->getProjectOptions() as $option){
+                    $em->persist($option);
+                }   
+                $em->flush();
+            }else{
+                $session->set('project', $entity);
+                return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project_show_session'));                
+            }
 
-            return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project_show', array('id' => $entity->getId())));
         }
 
         return $this->render('DafuerGetOptGeneratorBundle:Project:edit.html.twig', array(

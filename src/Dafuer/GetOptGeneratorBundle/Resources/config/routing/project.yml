@@ -32,6 +32,10 @@ DafuerGetOptGeneratorBundle_project_update:
     pattern:  /{id}/update
     defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:update" }
     requirements: { _method: post }
+    
+DafuerGetOptGeneratorBundle_project_update_session:
+    pattern:  /update
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:update", 'id':-1 }       
 
 DafuerGetOptGeneratorBundle_project_delete:
     pattern:  /{id}/delete
