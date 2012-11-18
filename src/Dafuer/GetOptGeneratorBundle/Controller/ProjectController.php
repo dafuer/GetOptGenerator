@@ -115,10 +115,12 @@ class ProjectController extends Controller
         $entity->setUser($user);
        
         foreach ($entity->getProjectOptions() as $option){
+            if($option->getDescription()==null){
+                $option->setDescription("");
+            }            
             $option->setProject($entity);
         }
-        
-       
+
         if ($form->isValid()) {
             if($user->getId()!=null){
                 $em = $this->getDoctrine()->getManager();
@@ -227,7 +229,7 @@ class ProjectController extends Controller
             $session->set('project', $entity);
         }*/
 
-        $old_project_options=$entity->getProjectOptions();
+        //$old_project_options=$entity->getProjectOptions();
         
         // Remove old options
         
@@ -240,6 +242,10 @@ class ProjectController extends Controller
         $editForm->bind($request);
 
         foreach ($entity->getProjectOptions() as $option){
+            if($option->getDescription()==null){
+                $option->setDescription("");
+            }     
+            
             $option->setProject($entity);
         }         
         
