@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dafuer\GetOptGeneratorBundle\Entity\User;
 use Dafuer\GetOptGeneratorBundle\Entity\Project;
+use Dafuer\GetOptGeneratorBundle\Entity\ProjectOption;
 use Dafuer\GetOptGeneratorBundle\Form\ProjectType;
 
 /**
@@ -76,6 +77,13 @@ class ProjectController extends Controller
     public function newAction()
     {
         $entity = new Project();
+        
+        $projectOption= new ProjectOption();
+        $projectOption->setShortName("h");
+        $projectOption->setLongName("help");
+        $projectOption->setDescription("Displays this information");
+        
+        $entity->addProjectOption($projectOption);
         $form   = $this->createForm(new ProjectType(), $entity);
 
         return $this->render('DafuerGetOptGeneratorBundle:Project:new.html.twig', array(
