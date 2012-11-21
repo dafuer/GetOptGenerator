@@ -23,11 +23,8 @@ class AppKernel extends Kernel
             new Dafuer\GetOptGeneratorBundle\DafuerGetOptGeneratorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new ManyMules\ManyMulesFontAwesomeBundle\ManyMulesFontAwesomeBundle(),
-            new FOS\UserBundle\FOSUserBundle(),
-            //new FOS\UserBundle\FOSUserBundle(),
-            
-            //new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            //new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\UserBundle\FOSUserBundle(), 
+            new AntiMattr\GoogleBundle\GoogleBundle(),
             new Dafuer\UserBundle\DafuerUserBundle(),
         );
 
