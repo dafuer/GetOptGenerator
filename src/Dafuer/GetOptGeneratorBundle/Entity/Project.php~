@@ -134,7 +134,7 @@ class Project {
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="ProjectOption", mappedBy="project", cascade={"persist"} )
+     * @ORM\OneToMany(targetEntity="ProjectOption", mappedBy="project", cascade={"persist","remove"} )
      */
     protected $projectOptions;
 

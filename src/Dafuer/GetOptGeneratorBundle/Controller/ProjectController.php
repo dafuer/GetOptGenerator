@@ -63,11 +63,9 @@ class ProjectController extends Controller
             throw $this->createNotFoundException('Unable to find Project entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('DafuerGetOptGeneratorBundle:Project:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+        ));
     }
 
     /**
@@ -176,12 +174,10 @@ class ProjectController extends Controller
         }        
 
         $editForm = $this->createForm(new ProjectType(), $entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('DafuerGetOptGeneratorBundle:Project:edit.html.twig', array(
             'entity'      => $entity,
             'form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -237,7 +233,6 @@ class ProjectController extends Controller
             $em->remove($option);
         }
         
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new ProjectType(), $entity);
         $editForm->bind($request);
 
@@ -268,7 +263,6 @@ class ProjectController extends Controller
         return $this->render('DafuerGetOptGeneratorBundle:Project:edit.html.twig', array(
             'entity'      => $entity,
             'form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -276,31 +270,29 @@ class ProjectController extends Controller
      * Deletes a Project entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->bind($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Project entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+    public function deleteAction($id)
+    {   
+        if(!$this->get('security.context')->isGranted('ROLE_USER')){
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
         }
+        
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
 
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Project entity.');
+        }
+        
+        if($entity && $entity->getUser()->getId()!=$this->get('security.context')->getToken()->getUser()->getId()){
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+        } 
+
+        
+        $em->remove($entity);
+        $em->flush();
+        
         return $this->redirect($this->generateUrl('DafuerGetOptGeneratorBundle_project'));
     }
 
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm()
-        ;
-    }
 }

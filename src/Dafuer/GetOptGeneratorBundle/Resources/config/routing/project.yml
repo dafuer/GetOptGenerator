@@ -40,4 +40,3 @@ DafuerGetOptGeneratorBundle_project_update_session:
 DafuerGetOptGeneratorBundle_project_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:delete" }
-    requirements: { _method: post }
