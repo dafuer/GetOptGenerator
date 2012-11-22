@@ -26,25 +26,27 @@
 {% include 'DafuerGetOptGeneratorBundle:Project:_form.html.twig' with {'form': form} %}        
      {{ form_rest(form) }}
     <p>
-        <button class="btn btn-success" type="submit">Edit</button>
+        <a href="#myModal" role="button" class="btn btn-warning" data-toggle="modal">
+            Cancel
+        </a>
+        <button class="btn btn-success" type="submit">Apply changes</button>
     </p> 
 </form>       
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('DafuerGetOptGeneratorBundle_project') }}" >
-            Back to the list
-        </a>
-    </li>
-    {% if entity.user.id is not defined %}
-        <li>
-            <form action="{{ path('DafuerGetOptGeneratorBundle_project_delete', { 'id': entity.id }) }}" method="post">
-                {{ form_widget(delete_form) }}
-                <button type="submit">Delete</button>
-            </form>
-        </li>
-    {% endif %}
-</ul>
-
+        
+<!-- Modal -->
+   <div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Warning</h3>
+    </div>
+    <div class="modal-body">
+        <p>Do you want to exit without save changes?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-primary" data-dismiss="modal">No</a>
+        <a href="{{ path('DafuerGetOptGeneratorBundle_project_show', { 'id': entity.id }) }}" class="btn btn-danger">Yes</a>
+    </div>
+    </div>
         
 
     
