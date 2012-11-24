@@ -77,6 +77,9 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Dafuer\GetOptGeneratorBundle\Entity\User
+    from_email:
+        address:        team@getoptgenerator.dafuer.es
+        sender_name:    "GetOptGenerator Team"        
 
 mopa_bootstrap:
     navbar: ~
