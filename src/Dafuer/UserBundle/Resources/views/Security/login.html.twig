@@ -2,7 +2,8 @@
 
 {% block fos_user_content %}
     {% if error %}
-        <div class="alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+        <div class="alert alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+        <BR />
     {% endif %}
 
     <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
@@ -29,7 +30,13 @@
                 </label>
                 <BR />
                 <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-            </div>
+                <BR />
+                <BR />
+                <a href="{{ path('fos_user_resetting_request') }}">
+                    Password forgotten?
+                </a>
+                <BR />           
+             </div>
         </div>
         
     </form>
