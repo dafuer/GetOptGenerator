@@ -20,21 +20,21 @@ class ProjectOptionType extends AbstractType
             ->add('longName', null, array( 
                 'label_render' => false,
                 'attr'=>array('placeholder'=>'Long Name',
-                            'class'=>'collection-item'
+                            //'class'=>'collection-item'
                     )
             ))
             ->add('arguments', null, array( 
                 'label_render' => false,
                 'required'=>false,
                 'attr'=>array(
-                            'class'=>'collection-item'
+                            //'class'=>'collection-item'
                     )
             )) 
             ->add('description', null, array( 
                 'label_render' => false,
                 'required'=>false,
                 'attr'=>array('placeholder'=>'Description',
-                            'class'=>'collection-item'
+                            //'class'=>'collection-item'
                     )
             ))
         ;

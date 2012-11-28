@@ -29,6 +29,7 @@
         this.options = $.extend({}, $.fn.collection.defaults, options);
 
         var embeddedForms = '' + this.options.collection_id + ' .collection-item';
+        console.debug($(embeddedForms).length+'sd');
         this.options.index = $(embeddedForms).length - 1;
     };
 

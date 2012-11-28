@@ -144,13 +144,7 @@ class ProjectController extends Controller
      */
     public function editAction($id=-1)
     {
-        /*$em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Project entity.');
-        }*/
         $session = $this->getRequest()->getSession();
         $entity=null;        
         
@@ -209,19 +203,6 @@ class ProjectController extends Controller
                 throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
             }          
         }        
-        /*if($id!=-1){
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Project entity.');
-
-
-                if($entity && $entity->getUser()->getId()!=$this->get('security.context')->getToken()->getUser()->getId()){
-                    throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
-                }              
-            }
-        }else{
-            $session = $this->getRequest()->getSession();
-            $session->set('project', $entity);
-        }*/
 
         //$old_project_options=$entity->getProjectOptions();
         
