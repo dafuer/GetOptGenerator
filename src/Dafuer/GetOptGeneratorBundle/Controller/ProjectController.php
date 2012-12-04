@@ -78,6 +78,8 @@ class ProjectController extends Controller
         $projectOption->setShortName("h");
         $projectOption->setLongName("help");
         $projectOption->setDescription("Displays this information");
+        $projectOption->setProject($entity);
+        
         
         $entity->addProjectOption($projectOption);
         $form   = $this->createForm(new ProjectType(), $entity);
@@ -100,7 +102,6 @@ class ProjectController extends Controller
         
         if($user=="anon."){
             $user=new User();
-            $formOptions['csrf_protection']=false;
         }           
         
         $entity  = new Project();
