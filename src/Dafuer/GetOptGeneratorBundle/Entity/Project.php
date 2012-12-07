@@ -4,6 +4,7 @@ namespace Dafuer\GetOptGeneratorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Dafuer\GetOptGeneratorBundle\Util\Util;
+use Dafuer\GetOptGeneratorBundle\Entity\Generator\GeneratorInterface;
 /**
  * Dafuer\GetOptGeneratorBundle\Entity\Project
  *
@@ -244,152 +245,18 @@ class Project {
         return false;
     }
     
-    /**
-     * Generate and return C headers
-     */
-    public function getCHeaderCode(){
-        return "
-#include <stdio.h>
-#include <stdlib.h>
-#include <getopt.h>
-
-";
+    protected $generator=null;
+    
+    public function setGenerator(GeneratorInterface $generator){
+        $this->generator=$generator;
     }
     
-    /**
-     * Generate and return help function in C 
-     */
-    public function getCHelpCode(){
-        $result='';
-        
-        $result.='// Display help information
-void help(){
-        printf("'.$this->slug.' - '.$this->description.'\n");
-	printf("Options:\n");';
-        
-        foreach($this->projectOptions as $option){
-            $result.='
-        printf("-'.$option->getShortName().' or --'.$option->getLongName().': '.$option->getDescription().'\n");';
-            
+    public function getCode(){
+        if($this->generator==null){
+            return "";
+        }else{
+            return $this->generator->getCode($this);
         }
-        $result.='
-}';
-        
- 
-        
-        return $result;
-    }
-    
-    
-    /**
-     * Generateand return main function 
-     */
-     public function getCMainCode(){
-        $result='';
-        
-        $result.='
-// Here your var definition
-
-// GetOpt definition
-';
-        foreach($this->projectOptions as $option){
-            if($option->getShortname()=='h' && $option->getLongname()=='help'){
-                // Do nothing
-            }else{
-                if($option->getArguments()==true){
-                    $result.='char *opt_'.$option->getLongname().';
-    ';
-                }else{
-                    $result.='char opt_'.$option->getLongname().'=0;
-    ';
-                }
-            }
-        }        
-$result.='
-int next_option;
-const char* const short_options = "';
-        foreach($this->projectOptions as $option){
-            $result.=$option->getShortname().($option->getArguments()==true?':':'');
-        }
-        $result.='" ;
-const struct option long_options[] =
-{
-';
-        foreach($this->projectOptions as $option){
-            $result.='  { "'.$option->getLongname().'", '.($option->getArguments()==true?'1':'0').', NULL, \''.$option->getShortname().'\' },
-';
-        }
-        $result.='        
-  { NULL, 0, NULL, 0 }
-};
-// Init function
-int main(int argc, char *argv[]){
-while (1)
-        {
-        // Obtain a option
-        next_option = getopt_long (argc, argv, short_options, long_options, NULL);
-
-        if (next_option == -1)
-          break; // No more options. Break loop.
-
-        switch (next_option)
-        {
-';
-        foreach($this->projectOptions as $option){
-            if($option->getShortname()=='h' && $option->getLongname()=='help'){
-                $result.='
-          case \'h\' : // -h or --help 
-            help();
-            return(1);';              
-            }else{
-            $result.='
-          case \''.$option->getShortname().'\' : // -'.$option->getShortname().' or --'.$option->getLongname().'
-            opt_'.$option->getLongname().'=optarg;
-            break;';
-            }
-        }
-
-         $result.='
-
-          case \'?\' : // Invalid option
-              '.($this->hasHelp()?'help(); // Return help':'').'
-              return(1);
-
-          case -1 : // No more options
-              break;
-
-          default : // Something unexpected? Aborting
-              return(1);
-          }
-        }
-        
-        // Iterate over rest arguments called argv[optind]
-        while (optind < argc){
-            // Your code here 
-
-            optind++;
-        }
-        
-}';
-        
-    /*
-     * { "help",         0,  NULL,   \'h\},
-{ "ph",           1,  NULL,   \'p\'},
-{ "first",        1,  NULL,   \'f\'},
-{ "last",         1,  NULL,   \'l\'},
-     */    
-        return $result;
-    }   
-    
-    
-    
-    /**
-     * Call al function to generate C sources
-     */
-    public function getCSource(){
-        return $this->getCHeaderCode().
-($this->hasHelp()?$this->getCHelpCode():'').'
-'.$this->getCMainCode();
     }
     
 }

@@ -10,6 +10,7 @@ use Dafuer\GetOptGeneratorBundle\Entity\Project;
 use Dafuer\GetOptGeneratorBundle\Entity\ProjectOption;
 use Dafuer\GetOptGeneratorBundle\Form\ProjectType;
 
+
 /**
  * Project controller.
  *
@@ -40,7 +41,7 @@ class ProjectController extends Controller
      * Finds and displays a Project entity.
      * (securized)
      */
-    public function showAction($id=-1)
+    public function showAction($id=-1,$lang="C")
     {
         
         $session = $this->getRequest()->getSession();
@@ -49,6 +50,10 @@ class ProjectController extends Controller
         if($id==-1){
             $entity=$session->get('project');
         }else{
+            if($this->get('security.context')->getToken()->getUser()=="anon."){
+                 throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+            }
+                
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
 
@@ -60,9 +65,15 @@ class ProjectController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Project entity.');
         }
+        
+        $generatorClass="Dafuer\\GetOptGeneratorBundle\\Entity\Generator\\".$lang."Generator";
+            
+        $generator=new $generatorClass();
+        
+        $entity->setGenerator($generator);
 
         return $this->render('DafuerGetOptGeneratorBundle:Project:show.html.twig', array(
-            'entity'      => $entity,
+            'entity'      => $entity
         ));
     }
 
