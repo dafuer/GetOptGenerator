@@ -6,16 +6,34 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ProjectControllerTest extends WebTestCase
 {
-    /*
+    
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
         $client = static::createClient();
 
+        // Enter in project list
+        $crawler = $client->request('GET', '/project');
+        //$crawler = $client->followRedirect();
+        // Since you are not logged in, redirect to login form
+        $this->assertTrue(301 === $client->getResponse()->getStatusCode());
+        
+       /* $client->request(
+            'GET',
+            '/project',
+            array(),
+            array(),
+            array('PHP_AUTH_USER' => 'david', 'PHP_AUTH_PW' => 'fuertes')
+        );*/
+
+       // echo $client->getResponse()->headers->contains('Location',"http://localhost/login");
+       // $this->assertTrue(200 === $client->getResponse()->getStatusCode());
+        
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/project/');
+        $crawler = $client->request('GET', '/project/new');
+        //$this->assertTrue($crawler->filter('html:contains("GetOpt")')->count() > 0);
         $this->assertTrue(200 === $client->getResponse()->getStatusCode());
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        /*$crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
@@ -48,7 +66,7 @@ class ProjectControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());*/
     }
-    */
+    
 }
