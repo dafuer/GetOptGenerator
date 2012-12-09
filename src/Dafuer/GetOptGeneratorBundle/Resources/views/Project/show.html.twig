@@ -34,6 +34,11 @@
 <h2>Source code generated in C</h2>
   {{ entity.getCode() }}
 </pre>
+{% if entity.created|date('Y-m-d H:i:s') != entity.updated|date('Y-m-d H:i:s') %}
+    <span class="pull-right">Updated at {{ entity.updated | date('Y-m-d H:i:s') }}</span>
+    <BR />
+{% endif %}
+<span class="pull-right">Created at {{ entity.created | date('Y-m-d H:i:s') }}</span>
 
 
 <BR/><BR/><BR/>
