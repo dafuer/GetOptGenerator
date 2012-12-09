@@ -1,0 +1,9 @@
+<BR />
+<form class="form-horizontal" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    {{ form_widget(form) }}
+    <div class="control-group">
+        <div class="controls">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn btn-primary" type="submit" value="&nbsp;&nbsp;&nbsp;{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}&nbsp;&nbsp;&nbsp;" />
+        </div>
+    </div>
+</form>
