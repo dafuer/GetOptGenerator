@@ -12,7 +12,11 @@ DafuerGetOptGeneratorBundle_project_show:
 
 DafuerGetOptGeneratorBundle_project_new:
     pattern:  /new
-    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:new" }
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:new", 'id': -1 }
+    
+DafuerGetOptGeneratorBundle_project_new_by:
+    pattern:  /{id}/new
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:new" }    
 
 DafuerGetOptGeneratorBundle_project_create:
     pattern:  /create

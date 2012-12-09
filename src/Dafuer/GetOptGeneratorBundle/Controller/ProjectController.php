@@ -81,18 +81,36 @@ class ProjectController extends Controller
      * Displays a form to create a new Project entity.
      *
      */
-    public function newAction()
+    public function newAction($id=-1)
     {
-        $entity = new Project();
+        $entity=null;
+        if($id==-1){ // New project
+            $entity = new Project();
+
+            $projectOption= new ProjectOption();
+            $projectOption->setShortName("h");
+            $projectOption->setLongName("help");
+            $projectOption->setDescription("Displays this information");
+            $projectOption->setProject($entity);
+            
+            $entity->addProjectOption($projectOption);
+        }else{
+            if($this->get('security.context')->getToken()->getUser()=="anon."){
+                 throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+            }
+                
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
+
+            if($entity && $entity->getUser()->getId()!=$this->get('security.context')->getToken()->getUser()->getId()){
+                throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+            }              
+        }
         
-        $projectOption= new ProjectOption();
-        $projectOption->setShortName("h");
-        $projectOption->setLongName("help");
-        $projectOption->setDescription("Displays this information");
-        $projectOption->setProject($entity);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Project entity.');
+        }        
         
-        
-        $entity->addProjectOption($projectOption);
         $form   = $this->createForm(new ProjectType(), $entity);
 
         return $this->render('DafuerGetOptGeneratorBundle:Project:new.html.twig', array(
