@@ -230,15 +230,19 @@ class ProjectController extends Controller
         foreach ($entity->getProjectOptions() as $option){
             if($option->getDescription()==null){
                 $option->setDescription("");
-            }     
-            
+            }            
             $option->setProject($entity);
         }         
+        
         
         if ($editForm->isValid()) {
             if($user->getId()!=null){
                 $em->flush();
+                $entity->setId($id);
+                $entity->setUpdated(new \DateTime("now"));
                 $em->persist($entity);
+                $metadata = $em->getClassMetaData(get_class($entity));
+                $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadata::GENERATOR_TYPE_NONE);                
                 foreach ($entity->getProjectOptions() as $option){
                     $em->persist($option);
                 }   

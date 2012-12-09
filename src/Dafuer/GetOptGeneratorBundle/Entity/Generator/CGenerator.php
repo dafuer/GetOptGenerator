@@ -39,7 +39,7 @@ class CGenerator  extends GeneratorInterface
         
         $result.='// Display help information
 void help(){
-        printf("'.$project->getSlug.' - '.$project->getDescription().'\n");
+        printf("'.$project->getSlug().' - '.$project->getDescription().'\n");
 	printf("Options:\n");';
         
         foreach($project->getProjectOptions() as $option){

@@ -48,6 +48,17 @@ class Project {
      */
     private $user;
     
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
+
+
     
     /**
      * Return true if the project has two o more options with same short name.
@@ -90,6 +101,10 @@ class Project {
      */
     public function getId() {
         return $this->id;
+    }
+    
+    public function setId($id){
+        $this->id=$id;
     }
 
     /**
@@ -148,7 +163,16 @@ class Project {
      */
     public function __construct() {
         $this->projectOptions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->created = $this->updated = new \DateTime("now");
     }
+    
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updated()
+    {
+        $this->updated = new \DateTime("now");
+    }    
 
     /**
      * Add projectOptions
@@ -259,4 +283,50 @@ class Project {
         }
     }
     
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Project
+     */
+    public function setCreated(\DateTime $created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Project
+     */
+    public function setUpdated(\DateTime $updated)
+    {
+        $this->updated = $updated;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
 }
