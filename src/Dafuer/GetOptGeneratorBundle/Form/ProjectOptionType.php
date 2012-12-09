@@ -27,6 +27,7 @@ class ProjectOptionType extends AbstractType
                 'label_render' => false,
                 'required'=>false,
                 'attr'=>array(
+                            'style'=>'margin-top:9px'
                             //'class'=>'collection-item'
                     )
             )) 

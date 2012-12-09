@@ -11,30 +11,30 @@ Add Option
 <BR/><BR/>
 {{ form_errors(form) }}
 <h3><center><b>Option list</b></center></h3>
-{% set boton='<td><a class="btn btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions___name___control_group"><i class="icon-trash icon-white"></i>
-                Remove
-                </a></td>' %}
+{% set boton='<td><a class="btn btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions___name___control_group"><i class="icon-trash icon-white"></i></a></td>' %}
     <table class="table table-striped optionProjects"  data-prototype="{{ form_widget(form.projectOptions.vars.prototype)|e }}{{ boton|e }}" id="{{ form.projectOptions.vars.id }}_control_group" class="collection-item">
     <thead>
         <tr>
             <th>Shortname</th>
             <th>Longname</th>
-            <th>Arguments</th>
+            <th>Args</th>
             <th>Description</th>
-            <th>Action</th>
+            <th> </th>
         </tr>
     </thead>
     <tbody  class="controls">
     {% for option in form.projectOptions %}
         <tr>
-            <td>{{ form_widget(option.shortName) }}</td>
+            <td>
+                {# <a class="controls collection-item btn btn-inverse btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_0_control_group"><i class="icon-circle-arrow-up icon-white"></i></a>
+                <a class="controls collection-item btn btn-inverse btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_0_control_group"><i class="icon-circle-arrow-down icon-white"></i></a> #}
+                {{ form_widget(option.shortName) }}
+            </td>
             <td>{{ form_widget(option.longName) }}</td>
             <td>{{ form_widget(option.arguments) }}</td>
             <td>{{ form_widget(option.description) }}</td>
             <td>
-                <a class="btn btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_0_control_group"><i class="icon-trash icon-white"></i>
-                Remove
-                </a>
+                <a class="btn btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_0_control_group"><i class="icon-trash icon-white"></i></a>
              </td>
         </tr>
         
