@@ -29,7 +29,7 @@ class ProjectController extends Controller
         
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->findByUser($this->get('security.context')->getToken()->getUser());
+        $entities = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->findByUser($this->get('security.context')->getToken()->getUser(),array('updated'=>'desc'));
 
         
         return $this->render('DafuerGetOptGeneratorBundle:Project:index.html.twig', array(
