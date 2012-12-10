@@ -11,7 +11,9 @@
         <tr>
             <th>Shortname</th>
             <th>Longname</th>
-            <th>Arguments</th>
+            <th>Args</th>
+            <th>Mandatory</th>
+            <th>Type</th>            
             <th>Description</th>
         </tr>
     </thead>
@@ -21,6 +23,8 @@
             <td>{{ option.shortName }}</td>
             <td>{{ option.longName }}</td>
             <td>{{ option.arguments==1?'yes':'no' }}</td>
+            <td>{{ option.mandatory==1?'yes':'no' }}</td>
+            <td>{{ option.type }}</td>
             <td>{{ option.description }}</td>
         </tr>
     {% endfor %}

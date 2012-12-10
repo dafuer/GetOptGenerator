@@ -43,6 +43,30 @@ class ProjectOption
     private $arguments;    
     
     /**
+     * @var boolean $mandatory
+     * 
+     * @ORM\Column(type="boolean")
+     */
+    private $mandatory;
+    
+    
+    public static $TYPE_VALUES=array(
+        'undefined'=>'undefined', 
+        'integer'=>'integer', 
+        'double'=>'double', 
+        'char'=>'char', 
+        'boolean'=>'boolean', 
+        'string'=>'string', 
+        'date'=>'date', 
+        'datetime'=>'datetime');
+    /**
+     * @var  string $type
+     * 
+     * @ORM\Column(type="string", columnDefinition="ENUM('undefined', 'integer', 'double', 'char', 'boolean', 'string', 'date', 'datetime')" )
+     */
+    private $type;
+    
+    /**
      * @var string $Description
      *
      * @ORM\Column(type="string", length=511, nullable=true)
@@ -238,4 +262,58 @@ class ProjectOption
     {
         return $this->arguments;
     }
+
+    /**
+     * Set mandatory
+     *
+     * @param boolean $mandatory
+     * @return ProjectOption
+     */
+    public function setMandatory($mandatory)
+    {
+        $this->mandatory = $mandatory;
+    
+        return $this;
+    }
+
+    /**
+     * Get mandatory
+     *
+     * @return boolean 
+     */
+    public function getMandatory()
+    {
+        return $this->mandatory;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \varchar $type
+     * @return ProjectOption
+     */
+    public function setType( $type)
+    {
+        if (!in_array($type, $this::$TYPE_VALUES)) {
+            throw new \InvalidArgumentException("Invalid type");
+        }
+        
+        $this->type = $type;
+    
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \varchar 
+     */
+    public function getType()
+    {
+        
+        return $this->type;
+    }
+    
+      
+    
 }

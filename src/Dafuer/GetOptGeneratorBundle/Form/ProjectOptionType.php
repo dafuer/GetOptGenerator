@@ -5,6 +5,7 @@ namespace Dafuer\GetOptGeneratorBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Dafuer\GetOptGeneratorBundle\Entity\ProjectOption;
 
 class ProjectOptionType extends AbstractType
 {
@@ -20,7 +21,7 @@ class ProjectOptionType extends AbstractType
             ->add('longName', null, array( 
                 'label_render' => false,
                 'attr'=>array('placeholder'=>'Long Name',
-                            //'class'=>'collection-item'
+                            'class'=>'input-medium'
                     )
             ))
             ->add('arguments', null, array( 
@@ -31,6 +32,22 @@ class ProjectOptionType extends AbstractType
                             //'class'=>'collection-item'
                     )
             )) 
+            ->add('mandatory', null, array( 
+                'label_render' => false,
+                'required'=>false,
+                'attr'=>array(
+                            'style'=>'margin-top:9px'
+                            //'class'=>'collection-item'
+                    )
+            ))  
+            ->add('type', 'choice', array(
+                'choices' => ProjectOption::$TYPE_VALUES,
+                'label_render' => false,
+                'required'=>true,
+                'attr'=>array('class'=>'input-small',
+                            //'class'=>'collection-item'
+                    )
+            ))                
             ->add('description', null, array( 
                 'label_render' => false,
                 'required'=>false,
