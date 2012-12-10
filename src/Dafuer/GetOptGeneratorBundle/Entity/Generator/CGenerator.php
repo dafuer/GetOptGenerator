@@ -39,12 +39,12 @@ class CGenerator  extends GeneratorInterface
         
         $result.='// Display help information
 void help(){
-        printf("'.$project->getSlug().' - '.$project->getDescription().'\n");
-	printf("Options:\n");';
+    printf("'.$project->getSlug().' - '.$project->getDescription().'\n");
+    printf("Options:\n");';
         
         foreach($project->getProjectOptions() as $option){
             $result.='
-        printf("-'.$option->getShortName().' or --'.$option->getLongName().': '.$option->getDescription().'\n");';
+    printf("-'.$option->getShortName().' or --'.$option->getLongName().': '.$option->getDescription().'\n");';
             
         }
         $result.='
@@ -60,90 +60,88 @@ void help(){
      * Generateand return main function 
      */
      public function getCMainCode($project){
-        $result='';
+        $result='
+int main(int argc, char *argv[]){';
         
         $result.='
-// Here your var definition
+    // Here your var definition
 
-// GetOpt definition
+    // GetOpt definition
 ';
         foreach($project->getProjectOptions() as $option){
             if($option->getShortname()=='h' && $option->getLongname()=='help'){
                 // Do nothing
             }else{
                 if($option->getArguments()==true){
-                    $result.='char *opt_'.$option->getLongname().';
+                    $result.='    char *opt_'.$option->getLongname().';
     ';
                 }else{
-                    $result.='char opt_'.$option->getLongname().'=0;
+                    $result.='    char opt_'.$option->getLongname().'=0;
     ';
                 }
             }
         }        
 $result.='
-int next_option;
-const char* const short_options = "';
+    int next_option;
+    const char* const short_options = "';
         foreach($project->getProjectOptions() as $option){
             $result.=$option->getShortname().($option->getArguments()==true?':':'');
         }
         $result.='" ;
-const struct option long_options[] =
-{
+    const struct option long_options[] =
+        {
 ';
         foreach($project->getProjectOptions() as $option){
-            $result.='  { "'.$option->getLongname().'", '.($option->getArguments()==true?'1':'0').', NULL, \''.$option->getShortname().'\' },
+            $result.='            { "'.$option->getLongname().'", '.($option->getArguments()==true?'1':'0').', NULL, \''.$option->getShortname().'\' },
 ';
         }
-        $result.='        
-  { NULL, 0, NULL, 0 }
-};
-// Init function
-int main(int argc, char *argv[]){
-while (1)
-        {
+        $result.='        { NULL, 0, NULL, 0 }
+        };
+    // Init function
+    while (1) {
         // Obtain a option
         next_option = getopt_long (argc, argv, short_options, long_options, NULL);
 
         if (next_option == -1)
           break; // No more options. Break loop.
 
-        switch (next_option)
-        {
+        switch (next_option){
 ';
         foreach($project->getProjectOptions() as $option){
             if($option->getShortname()=='h' && $option->getLongname()=='help'){
                 $result.='
-          case \'h\' : // -h or --help 
-            help();
-            return(1);';              
+            case \'h\' : // -h or --help 
+                help();
+                return(1);
+';              
             }else{
             $result.='
-          case \''.$option->getShortname().'\' : // -'.$option->getShortname().' or --'.$option->getLongname().'
-            opt_'.$option->getLongname().'=optarg;
-            break;';
+            case \''.$option->getShortname().'\' : // -'.$option->getShortname().' or --'.$option->getLongname().'
+                opt_'.$option->getLongname().'=optarg;
+                break;';
             }
         }
 
          $result.='
 
-          case \'?\' : // Invalid option
-              '.($project->hasHelp()?'help(); // Return help':'').'
-              return(1);
+            case \'?\' : // Invalid option
+                '.($project->hasHelp()?'help(); // Return help':'').'
+                return(1);
 
-          case -1 : // No more options
-              break;
+            case -1 : // No more options
+                break;
 
-          default : // Something unexpected? Aborting
-              return(1);
-          }
+            default : // Something unexpected? Aborting
+                return(1);
         }
+    }
         
-        // Iterate over rest arguments called argv[optind]
-        while (optind < argc){
-            // Your code here 
-
-            optind++;
-        }
+    // Iterate over rest arguments called argv[optind]
+    while (optind < argc){
+        // Your code here 
+        
+        optind++;
+    }
         
 }';
 
