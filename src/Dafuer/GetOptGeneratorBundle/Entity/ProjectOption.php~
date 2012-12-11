@@ -62,9 +62,9 @@ class ProjectOption
     /**
      * @var  string $type
      * 
-     * @ORM\Column(type="string", columnDefinition="ENUM('undefined', 'integer', 'double', 'char', 'boolean', 'string', 'date', 'datetime') NOT NULL DEFAULT 'undefined'" )
+     * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private $type='undefined';
     
     /**
      * @var string $Description
