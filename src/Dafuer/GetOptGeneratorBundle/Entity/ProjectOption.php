@@ -168,29 +168,6 @@ class ProjectOption
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     /**
      * Set project
@@ -294,7 +271,7 @@ class ProjectOption
      */
     public function setType( $type)
     {
-        if (!in_array($type, $this::$TYPE_VALUES)) {
+        if (!in_array($type, array_keys($this::$TYPE_VALUES))) {
             throw new \InvalidArgumentException("Invalid type");
         }
         

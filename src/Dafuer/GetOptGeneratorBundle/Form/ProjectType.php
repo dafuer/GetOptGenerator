@@ -5,6 +5,7 @@ namespace Dafuer\GetOptGeneratorBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Dafuer\GetOptGeneratorBundle\Entity\Project;
 
 class ProjectType extends AbstractType {
 
@@ -27,7 +28,14 @@ class ProjectType extends AbstractType {
                         'style'=>'font-size:x-large; font-weight: bold; height:1.2em;margin-bottom: 0px'
                     )
                 ))
-
+                ->add('languaje', 'choice', array(
+                    'choices' => Project::$LANGUAJE_VALUES,
+                    'label_render' => false,
+                    'required'=>true,
+                    'attr'=>array('class'=>'input-small',
+                                //'class'=>'collection-item'
+                        )
+                ))                
                 ->add('projectOptions','collection', array(
                             'type' => new ProjectOptionType(), 
                             'allow_add' => true,

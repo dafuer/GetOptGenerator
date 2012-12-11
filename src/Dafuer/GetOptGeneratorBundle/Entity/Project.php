@@ -43,6 +43,19 @@ class Project {
      */
     private $description;
     
+    
+    public static $LANGUAJE_VALUES=array(
+        'undefined'=>'Undefined', 
+        'c'=>'C', 
+        'bash'=>'Bash', 
+        );
+    /**
+     * @var  string $type
+     * 
+     * @ORM\Column(type="string", length=255)
+     */
+    private $languaje='undefined';
+    
     /**
      * @ORM\ManyToOne(targetEntity="Dafuer\GetOptGeneratorBundle\Entity\User", inversedBy="projects", cascade={"persist"}) 
      */
@@ -340,4 +353,32 @@ class Project {
     {
         return $this->updated;
     }
+
+    /**
+     * Set languaje
+     *
+     * @param string $languaje
+     * @return Project
+     */
+    public function setLanguaje($languaje)
+    {
+        if (!in_array($languaje, array_keys($this::$LANGUAJE_VALUES))) {
+            throw new \InvalidArgumentException("Invalid languaje");
+        }
+        
+        $this->languaje = $languaje;
+    
+        return $this;
+    }
+
+    /**
+     * Get languaje
+     *
+     * @return string 
+     */
+    public function getLanguaje()
+    {
+        return $this->languaje;
+    }
 }
+
