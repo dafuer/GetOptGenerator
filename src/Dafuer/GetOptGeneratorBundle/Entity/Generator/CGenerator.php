@@ -66,14 +66,14 @@ int main(int argc, char *argv[]){';
         $result.='
     // Here your var definition
 
-    // GetOpt definition
+    // GetOpt option definition
 ';
         foreach($project->getProjectOptions() as $option){
             if($option->getShortname()=='h' && $option->getLongname()=='help'){
                 // Do nothing
             }else{
                 if($option->getArguments()==true){
-                    $result.='    char *opt_'.$option->getLongname().';
+                    $result.='    char *opt_'.$option->getLongname().'=0;
     ';
                 }else{
                     $result.='    char opt_'.$option->getLongname().'=0;
@@ -97,13 +97,14 @@ $result.='
         }
         $result.='        { NULL, 0, NULL, 0 }
         };
-    // Init function
+
+    // Parse options
     while (1) {
         // Obtain a option
         next_option = getopt_long (argc, argv, short_options, long_options, NULL);
 
         if (next_option == -1)
-          break; // No more options. Break loop.
+            break; // No more options. Break loop.
 
         switch (next_option){
 ';
@@ -134,7 +135,35 @@ $result.='
             default : // Something unexpected? Aborting
                 return(1);
         }
+    }';
+   
+   $mandatory_options=0;
+   // Then, validate
+   if($project->hasMandatoryOptions()){
+          $result.='    
+              
+    // Check for mandatory arguments
+    if( ';
+        foreach($project->getProjectOptions() as $option){
+            if($option->getMandatory()==true){
+                  if($mandatory_options!=0)  $result.=' || ';        
+                  $result.='opt_'.$option->getLongname().'==0';
+                  $mandatory_options++;
+            }            
+        }
+        $result.=' ){
+        printf("Mandatory arguments not specified\n");
+';
+     if($project->hasHelp()){
+         $result.='        help();
+';
+        
+     }
+         $result.='        exit(-1);
+    }';
     }
+   // Last, iterate over other values
+   $result.='
         
     // Iterate over rest arguments called argv[optind]
     while (optind < argc){
