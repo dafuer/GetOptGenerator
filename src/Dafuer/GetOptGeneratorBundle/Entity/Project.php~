@@ -269,6 +269,17 @@ class Project {
         return false;
     }
     
+    /**
+     * Are there mandatory arguments in this project?
+     * @return boolean
+     */
+    public function hasMandatoryOptions(){
+        foreach($this->getProjectOptions() as $option){
+            if($option->getMandatory()==true) return true;
+        }
+        
+        return false;
+    }    
     protected $generator=null;
     
     public function setGenerator(GeneratorInterface $generator){

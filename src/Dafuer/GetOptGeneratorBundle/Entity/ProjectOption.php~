@@ -50,11 +50,19 @@ class ProjectOption
     private $mandatory;
     
     
-    public static $TYPE_VALUES=array('undefined'=>'undefined', 'integer'=>'integer', 'double'=>'double', 'char'=>'char', 'boolean'=>'boolean', 'string'=>'string', 'date'=>'date', 'datetime'=>'datetime');
+    public static $TYPE_VALUES=array(
+        'undefined'=>'undefined', 
+        'integer'=>'integer', 
+        'double'=>'double', 
+        'char'=>'char', 
+        'boolean'=>'boolean', 
+        'string'=>'string', 
+        'date'=>'date', 
+        'datetime'=>'datetime');
     /**
      * @var  string $type
      * 
-     * @ORM\Column(type="string", columnDefinition="ENUM('undefined', 'integer', 'double', 'char', 'boolean', 'string', 'date', 'datetime')" )
+     * @ORM\Column(type="string", columnDefinition="ENUM('undefined', 'integer', 'double', 'char', 'boolean', 'string', 'date', 'datetime') NOT NULL DEFAULT 'undefined'" )
      */
     private $type;
     
@@ -302,7 +310,8 @@ class ProjectOption
      */
     public function getType()
     {
-        return $this::$TYPE_VALUES[$this->mandatory];
+        
+        return $this->type;
     }
     
       
