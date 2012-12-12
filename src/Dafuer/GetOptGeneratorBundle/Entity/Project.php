@@ -45,7 +45,6 @@ class Project {
     
     
     public static $LANGUAJE_VALUES=array(
-        'undefined'=>'Undefined', 
         'c'=>'C', 
         'bash'=>'Bash', 
         );
@@ -54,7 +53,7 @@ class Project {
      * 
      * @ORM\Column(type="string", length=255)
      */
-    private $languaje='undefined';
+    private $languaje; 
     
     /**
      * @ORM\ManyToOne(targetEntity="Dafuer\GetOptGeneratorBundle\Entity\User", inversedBy="projects", cascade={"persist"}) 

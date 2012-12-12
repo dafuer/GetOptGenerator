@@ -29,13 +29,16 @@ class ProjectType extends AbstractType {
                     )
                 ))
                 ->add('languaje', 'choice', array(
-                    'choices' => Project::$LANGUAJE_VALUES,
+                    'choices'=>Project::$LANGUAJE_VALUES,
+                    'required'    => true,
+                    'empty_value' => 'Choose languaje',
+                    'empty_data'  => null,
                     'label_render' => false,
-                    'required'=>true,
-                    'attr'=>array('class'=>'input-small',
+                    'attr'=>array('class'=>'input',
                                 //'class'=>'collection-item'
-                        )
-                ))                
+                        ),
+                ))
+       
                 ->add('projectOptions','collection', array(
                             'type' => new ProjectOptionType(), 
                             'allow_add' => true,
