@@ -5,14 +5,16 @@
 {{ form_widget(form.name, { 'attr': {'class': 'input-xxlarge', 'placeholder':'Project Name', 'style':'font-size:xx-large; font-weight: bold; height:40px'} }) }}
 {{ form_widget(form.description, { 'attr': {'class': 'input-xxlarge', 'placeholder':'Description', 'style':'font-size:x-large; font-weight: bold; height:30px'} }) }}
 <BR/><BR/>
-{{ form_widget(form.languaje) }}
-<BR/>
-<a class="btn btn-primary" data-collection-add-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_control_group"><i class="icon-plus-sign icon-white"></i>
-Add Option
-</a>
+<span style="font-size: large">Languaje: &nbsp;</span>{{ form_widget(form.languaje, { 'attr': {'class': 'input', 'style':'font-size:medium;  height:35px'} }) }}
 <BR/><BR/>
-{{ form_errors(form) }}
-<h3><center><b>Option list</b></center></h3>
+<BR/>
+<center>{{ form_errors(form) }}</center>
+<div>
+    <div style="text-align: center; font-weight: bold; font-size: x-large;margin-bottom: -5px">Option list</div>
+    <a class="btn btn-primary" style="margin-bottom: 8px" data-collection-add-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_control_group"><i class="icon-plus-sign icon-white"></i>
+    Add Option
+    </a>    
+</div>
 {% set boton='<td><a class="btn btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions___name___control_group"><i class="icon-trash icon-white"></i></a></td>' %}
     <table class="table table-striped optionProjects"  data-prototype="{{ form_widget(form.projectOptions.vars.prototype)|e }}{{ boton|e }}" id="{{ form.projectOptions.vars.id }}_control_group" class="collection-item">
     <thead>
