@@ -33,7 +33,20 @@
 
 <BR/>
 
-
+<div class="alert alert-info" style="text-align: right">
+        {#<a href="#"  class="btn btn-primary">
+            <i class="icon-paste icon-white"></i> Copy to clipboard
+        </a> #}  
+        {% if entity.user.id is not null %}
+            <a href="{{ path('DafuerGetOptGeneratorBundle_project_download', { 'id': entity.id }) }}"  class="btn btn-primary">
+                <i class="icon-download-alt icon-white"></i> Download
+            </a>
+        {% else %}
+            <a href="{{ path('DafuerGetOptGeneratorBundle_project_download_session' ) }}"  class="btn btn-primary">
+                <i class="icon-download-alt icon-white"></i> Download
+            </a>
+        {% endif %}
+</div>
 <pre>
 <h2>Source code generated in C</h2>
   {{ entity.getCode() }}
@@ -46,12 +59,20 @@
 
 
 <BR/><BR/><BR/>
-<div class="alert alert-info" style="text-align: right">
+<div class="alert alert-info">
+  
+    
+    <div style="position:absolute;text-align:left">
         {% if entity.user.id is not null %} 
              <a href="{{ path('DafuerGetOptGeneratorBundle_project') }}" class="btn btn-success">
                  <i class="icon-list-alt icon-white"></i> Back to the list
              </a>
         {% endif %}
+    </div>
+
+    <div style="text-align:right;">
+        
+
         {% if entity.user.id is not null %}
             <a href="{{ path('DafuerGetOptGeneratorBundle_project_edit', { 'id': entity.id }) }}"  class="btn btn-warning">
                 <i class="icon-edit icon-white"></i> Edit
@@ -69,6 +90,8 @@
                 <i class="icon-trash icon-white"></i> Delete
             </a>
         {% endif %}
+    </div>
+
  </div>
 <!-- Modal -->
    <div class="modal hide fade" id="myModal">

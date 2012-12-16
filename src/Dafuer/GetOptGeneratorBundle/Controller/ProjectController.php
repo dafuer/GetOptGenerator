@@ -4,6 +4,7 @@ namespace Dafuer\GetOptGeneratorBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dafuer\GetOptGeneratorBundle\Entity\User;
 use Dafuer\GetOptGeneratorBundle\Entity\Project;
@@ -41,7 +42,7 @@ class ProjectController extends Controller
      * Finds and displays a Project entity.
      * (securized)
      */
-    public function showAction($id=-1,$lang="C")
+    public function showAction($id=-1,$lang="c")
     {
         
         $session = $this->getRequest()->getSession();
@@ -68,6 +69,7 @@ class ProjectController extends Controller
         
         $generatorClass="Dafuer\\GetOptGeneratorBundle\\Entity\Generator\\".$lang."Generator";
             
+        
         $generator=new $generatorClass();
         
         $entity->setGenerator($generator);
@@ -75,6 +77,48 @@ class ProjectController extends Controller
         return $this->render('DafuerGetOptGeneratorBundle:Project:show.html.twig', array(
             'entity'      => $entity
         ));
+    }
+    
+    
+    public function downloadAction($id=-1,$lang="c"){
+        
+        $session = $this->getRequest()->getSession();
+        $entity=null;        
+        
+        if($id==-1){
+            $entity=$session->get('project');
+        }else{
+            if($this->get('security.context')->getToken()->getUser()=="anon."){
+                 throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+            }
+                
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('DafuerGetOptGeneratorBundle:Project')->find($id);
+
+            if($entity && $entity->getUser()->getId()!=$this->get('security.context')->getToken()->getUser()->getId()){
+                throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+            }          
+        }
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Project entity.');
+        }
+        
+        $generatorClass="Dafuer\\GetOptGeneratorBundle\\Entity\Generator\\".$lang."Generator";
+            
+        
+        $generator=new $generatorClass();
+        
+        $entity->setGenerator($generator);
+
+        return new Response(
+            $entity->getCode(),
+            200,
+            array(
+                 'Content-Type' => 'text/txt',
+                 'Content-Disposition' => sprintf('attachment;filename="%s.%s"', $entity->getSlug(), $generator->getExtension())
+            )
+        );        
     }
 
     /**

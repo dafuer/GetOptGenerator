@@ -9,7 +9,15 @@ use Dafuer\GetOptGeneratorBundle\Entity\Project;
 class CGenerator  extends GeneratorInterface
 {
    
-    
+    /**
+     * Return a extension of c source file
+     * @return string extension
+     */
+    public function getExtension(){
+        return 'c';
+    }
+
+
     /**
      * Call al function to generate C sources
      */
