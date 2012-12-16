@@ -14,12 +14,14 @@ class ProjectOptionType extends AbstractType
         $builder
             ->add('shortName', null, array( 
                 'label_render' => false,
+                'required' => false,
                 'attr'=>array('placeholder'=>'Short Name',
                             'class'=>'collection-item input-small'
                     )
             ))
             ->add('longName', null, array( 
                 'label_render' => false,
+                'required' => false,
                 'attr'=>array('placeholder'=>'Long Name',
                             'class'=>'input-medium'
                     )

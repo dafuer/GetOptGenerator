@@ -106,6 +106,18 @@ class Project {
         }
     }    
     
+    public function isInvalidNames(){
+        $options=$this->getProjectOptions();
+        foreach($options as $option){
+            if((is_null($option->getLongName()) || $option->getLongName()=="") &&
+               (is_null($option->getShortName()) || $option->getShortName()=="")){
+                return true;
+            }
+        }
+         
+        return false;     
+    }
+    
     /**
      * Get id
      *
@@ -380,4 +392,3 @@ class Project {
         return $this->languaje;
     }
 }
-

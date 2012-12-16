@@ -24,14 +24,14 @@ class ProjectOption
     /**
      * @var string $ShortName
      *
-     * @ORM\Column(type="string", length=1)
+     * @ORM\Column(type="string", length=1, nullable=true)
      */
     private $shortName;
 
     /**
      * @var string $LongName
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $longName;
 

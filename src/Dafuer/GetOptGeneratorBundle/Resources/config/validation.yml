@@ -4,3 +4,5 @@ Dafuer\GetOptGeneratorBundle\Entity\Project:
             - "False": { message: "Short options can not be repeated" }
         repeatedLongOption:
             - "False": { message: "Long options can not be repeated" }            
+        invalidNames:
+            - "False": { message: "Short or long name must be defined in every single option" }
