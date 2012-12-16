@@ -57,5 +57,8 @@
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
     %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
+<script type="text/javascript">$(function(){$('[class*="tooltip-link"]').tooltip()});</script>
+
+
 {% endjavascripts %}
 {% endblock foot_script %}

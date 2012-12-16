@@ -9,3 +9,14 @@ table thead th{
     color: white;
     background-color: #441b21;
 }
+
+.tooltip-link-white{
+    text-decoration: none;
+    color: white;
+}
+
+.tooltip-link-white:hover{
+    text-decoration: none;
+    color: white;
+    cursor: default;
+}
