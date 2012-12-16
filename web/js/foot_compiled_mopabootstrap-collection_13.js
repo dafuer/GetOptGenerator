@@ -28,7 +28,7 @@
         this.$element = $(element);
         this.options = $.extend({}, $.fn.collection.defaults, options);
 
-        var embeddedForms = '' + this.options.collection_id + ' .collection-item';
+        var embeddedForms = 'div' + this.options.collection_id + ' .collection-item';
         this.options.index = $(embeddedForms).length - 1;
     };
 
@@ -46,18 +46,16 @@
             this.addPrototype(index);
         },
         addPrototype: function(index) {
-            var rowContent = $(this.options.collection_id).attr('data-prototype').replace(/__name__/g, index);
-            var last=$(rowContent).get(0).tagName;
-            //var row = $("<"+last+" />");
-            var row = $("<TR  id='dafuer_getoptgeneratorbundle_projecttype_projectOptions_"+index+"_control_group' />");
-            row.html(rowContent);
-            //alert(row.html());
-            $('' + this.options.collection_id + '> .controls').append(row);
+            var rowContent = $(this.options.collection_id).attr('data-prototype').replace(/__name__/g, index);            
+            var row = $(rowContent);     
+            $('div' + this.options.collection_id + '> .controls').append(row);
             $(this.options.collection_id).trigger('add.mopa-collection-item', [row]);
         },
         remove: function () {
-                if (this.$element.parents('td').parents('tr').length !== 0){
-                    this.$element.parent('td').parent('tr').remove();
+                if (this.$element.parents('.collection-item').length !== 0){
+                    var row = this.$element.closest('.collection-item');
+                    row.remove();
+                    $(this.options.collection_id).trigger('remove.mopa-collection-item', [row]);
                 }
         }
 
@@ -75,6 +73,9 @@
             options = typeof option == 'object' ? option : {};
           if(collection_id){
               options.collection_id = collection_id;
+          }
+          else if($this.closest(".control-group").attr('id')){
+        	  options.collection_id = '#'+$this.closest(".control-group").attr('id');
           }
           else{
         	  options.collection_id = this.id.length === 0 ? '' : '#' + this.id;
