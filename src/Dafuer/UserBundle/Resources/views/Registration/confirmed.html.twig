@@ -1,0 +1,7 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+<BR />
+<p>Congrats {{ user.username }}, your account is now activated. You can start <a href="{{ path('DafuerGetOptGeneratorBundle_project') }}">here</a></p>
+    
+{% endblock fos_user_content %}
