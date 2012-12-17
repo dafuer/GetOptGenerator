@@ -34,9 +34,9 @@
 <BR/>
 
 <div class="alert alert-info" style="text-align: right">
-        {#<a href="#"  class="btn btn-primary">
+        <a href="#"  id="copy-code" class="btn btn-primary">
             <i class="icon-paste icon-white"></i> Copy to clipboard
-        </a> #}  
+        </a>   
         {% if entity.user.id is not null %}
             <a href="{{ path('DafuerGetOptGeneratorBundle_project_download', { 'id': entity.id }) }}"  class="btn btn-primary">
                 <i class="icon-download-alt icon-white"></i> Download
@@ -49,7 +49,9 @@
 </div>
 <pre>
 <h2>Source code generated in C</h2>
+<div id="source-code">
   {{ entity.getCode() }}
+</div>
 </pre>
 {% if entity.created|date('Y-m-d H:i:s') != entity.updated|date('Y-m-d H:i:s') %}
     <span class="pull-right">Updated at {{ entity.updated | date('Y-m-d H:i:s') }}</span>
@@ -108,7 +110,7 @@
     </div>
     </div>
 
-     
+
         {#<form action="{{ path('project_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit" class="btn btn-danger">Delete</button>
@@ -134,3 +136,5 @@
     </li>
 </ul>#}
 {% endblock %}
+
+

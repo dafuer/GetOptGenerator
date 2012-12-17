@@ -57,8 +57,15 @@
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
     %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
-<script type="text/javascript">$(function(){$('[class*="tooltip-link"]').tooltip()});</script>
-
+<script type="text/javascript">
+    // Start tooltips
+    $(function(){$('[class*="tooltip-link"]').tooltip()});
+    
+    // Start copy projects
+    var zeroswfpath='{{ asset('bundles/dafuergetoptgenerator/js/ZeroClipboard.swf') }}'
+</script>
+<script type="text/javascript" src="{{ asset('bundles/dafuergetoptgenerator/js/jquery.zclip.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/dafuergetoptgenerator/js/copy_project') }}"></script>
 
 {% endjavascripts %}
 {% endblock foot_script %}
