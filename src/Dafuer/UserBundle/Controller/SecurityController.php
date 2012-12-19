@@ -8,8 +8,8 @@ use FOS\UserBundle\Controller\SecurityController as BaseController;
 class SecurityController extends BaseController {
 
     /**
-     * Sobreescribo este metodo para poder pasarle una variable mas por get que sea
-     * si se deve visualizar completo o compacto 
+     * Override this method because it has the hability to obtain more get variable.
+     * This variable allows display compact or complete form
      */
     public function loginAction() {
         $response = parent::loginAction();
@@ -17,8 +17,8 @@ class SecurityController extends BaseController {
     }
 
     /**
-     * Sobreescribo este metodo para ser capaz de tener 2 plantillas para el mismo formulario
-     * en funcion de si quiero una vista compacta o completa del formulario
+     * Override this method to allowing have two different templates for 
+     * same form, compact view or complete view
      */
     protected function renderLogin(array $data) {
         $request = $this->container->get('request');

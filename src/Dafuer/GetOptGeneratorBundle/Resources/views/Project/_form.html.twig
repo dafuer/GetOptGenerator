@@ -25,11 +25,7 @@
                 <a href="#" class="tooltip-link-white" rel="tooltip" data-placement="top" data-original-title="Option short name will be call after '-'">
                     Shortname
                 </a>
-            </th>
-
-
-
-            
+            </th>            
             <th>
                 <a href="#" class="tooltip-link-white" rel="tooltip" data-placement="top" data-original-title="Option long name will be call after '--'">
                     Longname
@@ -61,8 +57,6 @@
     {% for option in form.projectOptions %}
         <tr>
             <td>
-                {# <a class="controls collection-item btn btn-inverse btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_0_control_group"><i class="icon-circle-arrow-up icon-white"></i></a>
-                <a class="controls collection-item btn btn-inverse btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_0_control_group"><i class="icon-circle-arrow-down icon-white"></i></a> #}
                 {{ form_widget(option.shortName) }}
             </td>
             <td>{{ form_widget(option.longName) }}</td>

@@ -18,7 +18,6 @@ DafuerGetOptGeneratorBundle_project_download:
     pattern:  /{id}/download/{lang}
     defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:download", lang: 'C' }
 
-
 DafuerGetOptGeneratorBundle_project_new:
     pattern:  /new
     defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:new", 'id': -1 }
@@ -40,7 +39,6 @@ DafuerGetOptGeneratorBundle_project_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:edit" }
   
-
 DafuerGetOptGeneratorBundle_project_update:
     pattern:  /{id}/update
     defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:update" }

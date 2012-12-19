@@ -22,14 +22,6 @@
         <tr>
             <td><a href="{{ path('DafuerGetOptGeneratorBundle_project_show', { 'id': entity.id }) }}"><b>{{ entity.name }}</b></a></td>
             <td>{{ entity.description }}</td>
-            {#<td>
-                <a href="{{ path('DafuerGetOptGeneratorBundle_project_show', { 'id': entity.id } ) }}"  class="btn btn-success">
-                    <i class="icon-edit icon-white"></i> Show
-                </a>                
-                <a href="{{ path('DafuerGetOptGeneratorBundle_project_edit', { 'id': entity.id } ) }}"  class="btn btn-warning">
-                    <i class="icon-edit icon-white"></i> Edit
-                </a>                
-            </td>#}
         </tr>
     {% endfor %}
     </tbody>

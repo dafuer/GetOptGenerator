@@ -35,7 +35,6 @@ class ProjectType extends AbstractType {
                     'empty_data'  => null,
                     'label_render' => false,
                     'attr'=>array('class'=>'input',
-                                //'class'=>'collection-item'
                         ),
                 ))
        

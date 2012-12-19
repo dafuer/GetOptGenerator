@@ -31,7 +31,6 @@ class ProjectOptionType extends AbstractType
                 'required'=>false,
                 'attr'=>array(
                             'style'=>'margin-top:9px'
-                            //'class'=>'collection-item'
                     )
             )) 
             ->add('mandatory', null, array( 
@@ -39,7 +38,6 @@ class ProjectOptionType extends AbstractType
                 'required'=>false,
                 'attr'=>array(
                             'style'=>'margin-top:9px'
-                            //'class'=>'collection-item'
                     )
             ))  
             ->add('type', 'choice', array(
@@ -47,14 +45,12 @@ class ProjectOptionType extends AbstractType
                 'label_render' => false,
                 'required'=>true,
                 'attr'=>array('class'=>'input-small',
-                            //'class'=>'collection-item'
                     )
             ))                
             ->add('description', null, array( 
                 'label_render' => false,
                 'required'=>false,
                 'attr'=>array('placeholder'=>'Description',
-                            //'class'=>'collection-item'
                     )
             ))
         ;
