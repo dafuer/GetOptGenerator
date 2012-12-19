@@ -42,7 +42,7 @@
         </span>
 
         <select class="input-medium"  onchange="window.location = this.options[this.selectedIndex].getAttribute('data-url');">
-            {% for lang,route in languajes %}
+            {% for lang,route in languages %}
                 <option value="" {% if lang == entity.generator.id %}selected="true"{% endif %} data-url="{{ route }}">{{ lang }}</option>
             {% endfor %}
         </select>

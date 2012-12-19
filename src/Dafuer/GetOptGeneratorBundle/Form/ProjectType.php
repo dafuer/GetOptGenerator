@@ -28,10 +28,10 @@ class ProjectType extends AbstractType {
                         'style'=>'font-size:x-large; font-weight: bold; height:1.2em;margin-bottom: 0px'
                     )
                 ))
-                ->add('languaje', 'choice', array(
-                    'choices'=>Project::getValidLanguajes(),
+                ->add('language', 'choice', array(
+                    'choices'=>Project::getValidLanguages(),
                     'required'    => true,
-                    'empty_value' => 'Choose languaje',
+                    'empty_value' => 'Choose language',
                     'empty_data'  => null,
                     'label_render' => false,
                     'attr'=>array('class'=>'input',

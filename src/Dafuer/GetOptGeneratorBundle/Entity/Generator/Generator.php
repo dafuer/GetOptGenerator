@@ -8,30 +8,30 @@ abstract class Generator {
     protected $project;
     
     /**
-     * Valid languajes
+     * Valid languages
      */
-    public static $LANGUAJES=array(
+    public static $LANGUAGES=array(
         'c'=>'C', 
         'bash'=>'Bash', 
         );
     
     /**
-     * Return languaje id (ie 'c')
+     * Return language id (ie 'c')
      */
     abstract public function getId();
     
     /**
-     * Return languaje name (ie 'C')
+     * Return language name (ie 'C')
      */
     abstract public function getName();
     
     /**
-     * Return source code translating to a languaje
+     * Return source code translating to a language
      */
     abstract public function getCode();
     
     /**
-     * Return common extension of a source files in a languaje
+     * Return common extension of a source files in a language
      */
     abstract public function getExtension();
     

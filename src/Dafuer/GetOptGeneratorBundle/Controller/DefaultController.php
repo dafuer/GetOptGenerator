@@ -3,6 +3,7 @@
 namespace Dafuer\GetOptGeneratorBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Dafuer\GetOptGeneratorBundle\Entity\Project;
 
 class DefaultController extends Controller
 {
@@ -13,7 +14,9 @@ class DefaultController extends Controller
     
     public function moreinformationAction()
     {
-        return $this->render('DafuerGetOptGeneratorBundle:Default:moreinformation.html.twig', array());
+        $languages=Project::getValidLanguages();
+        
+        return $this->render('DafuerGetOptGeneratorBundle:Default:moreinformation.html.twig', array('languages' => $languages));
     }
     
     public function startAction()

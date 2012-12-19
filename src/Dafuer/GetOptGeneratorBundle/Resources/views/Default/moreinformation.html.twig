@@ -15,7 +15,7 @@
 GetOpt library helps you to parse option in command lines. This work can be tedious
 but with this library it is easy. You can specify your options and the parameters
 they could have, and then you will obtain this information inside your tool. GetOpt is 
-implemented in most popular languajes.
+implemented in most popular languages.
 </p>
 <BR/><BR/>
 <h2>2) Why GetOpt Generator?</h2>
@@ -25,6 +25,17 @@ GetOpt Generator helps you to specify your project options. Then, with this info
 this web application generates a code scheme to parse your options using getopt library. 
 Also you can have implemented the help function. This information will be displayed using
 -h or --help option. This help contains information about how to run your project.
+</p>
+<BR/><BR/>
+<h2>2) What languages are supported?</h2>
+<BR />
+<p>
+Currently, GetOptGenerator support the following languages:
+<ul>
+{% for language in languages%}
+        <li>{{ language }}</li>
+{% endfor %}
+</ul>
 </p>
 </div>
 

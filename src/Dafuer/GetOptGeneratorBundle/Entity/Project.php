@@ -49,7 +49,7 @@ class Project {
      * 
      * @ORM\Column(type="string", length=255)
      */
-    private $languaje; 
+    private $language; 
     
     /**
      * @ORM\ManyToOne(targetEntity="Dafuer\GetOptGeneratorBundle\Entity\User", inversedBy="projects", cascade={"persist"}) 
@@ -367,33 +367,33 @@ class Project {
     }
 
     /**
-     * Set languaje
+     * Set language
      *
-     * @param string $languaje
+     * @param string $language
      * @return Project
      */
-    public function setLanguaje($languaje)
+    public function setLanguage($language)
     {
-        if (!in_array($languaje, array_keys($this::$LANGUAJE_VALUES))) {
-            throw new \InvalidArgumentException("Invalid languaje");
+        if (!in_array($language, array_keys($this::getValidLanguages()))) {
+            throw new \InvalidArgumentException("Invalid language");
         }
         
-        $this->languaje = $languaje;
+        $this->language = $language;
     
         return $this;
     }
 
     /**
-     * Get languaje
+     * Get language
      *
      * @return string 
      */
-    public function getLanguaje()
+    public function getLanguage()
     {
-        return $this->languaje;
+        return $this->language;
     }
     
-    public static function getValidLanguajes(){
-            return Generator::$LANGUAJES;
+    public static function getValidLanguages(){
+            return Generator::$LANGUAGES;
     }
 }
