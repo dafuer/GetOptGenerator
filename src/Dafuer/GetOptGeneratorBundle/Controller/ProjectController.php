@@ -145,13 +145,34 @@ class ProjectController extends Controller
         if($id==-1){ // New project
             $entity = new Project();
 
-            $projectOption= new ProjectOption();
-            $projectOption->setShortName("h");
-            $projectOption->setLongName("help");
-            $projectOption->setDescription("Displays this information");
-            $projectOption->setProject($entity);
+            // Adding help option
+            $helpOption= new ProjectOption();
+            $helpOption->setShortName("h");
+            $helpOption->setLongName("help");
+            $helpOption->setDescription("Displays this information");
+            $helpOption->setProject($entity);
             
-            $entity->addProjectOption($projectOption);
+            $entity->addProjectOption($helpOption);
+            
+            //
+            //Adding verbose option
+            $verboseOption= new ProjectOption();
+            $verboseOption->setShortName("v");
+            $verboseOption->setLongName("verbose");
+            $verboseOption->setDescription("Verbose mode on");
+            $verboseOption->setProject($entity);
+            
+            $entity->addProjectOption($verboseOption);
+            
+            // Adding version option
+            $versionOption= new ProjectOption();
+            $versionOption->setShortName("V");
+            $versionOption->setLongName("version");
+            $versionOption->setDescription("Displays the current version number");
+            $versionOption->setProject($entity);
+            
+            $entity->addProjectOption($versionOption);            
+            
         }else{
             if($this->get('security.context')->getToken()->getUser()=="anon."){
                  throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
