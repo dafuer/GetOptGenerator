@@ -126,7 +126,7 @@ class ProjectController extends Controller
         $entity->setGenerator($generator);
 
         return new Response(
-            $entity->getCode(),
+            $entity->getGenerator()->getCode(),
             200,
             array(
                  'Content-Type' => 'text/txt',

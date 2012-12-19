@@ -41,8 +41,7 @@ class CGenerator  extends Generator
      * Generate and return C headers
      */
     public function getCHeaderCode(){
-        return "
-#include <stdio.h>
+        return "#include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
 
@@ -92,10 +91,10 @@ int main(int argc, char *argv[]){';
             }else{
                 if($option->getArguments()==true){
                     $result.='    char *opt_'.$option->getLongname().'=0;
-    ';
+';
                 }else{
                     $result.='    char opt_'.$option->getLongname().'=0;
-    ';
+';
                 }
             }
         }        
@@ -113,7 +112,7 @@ $result.='
             $result.='            { "'.$option->getLongname().'", '.($option->getArguments()==true?'1':'0').', NULL, \''.$option->getShortname().'\' },
 ';
         }
-        $result.='        { NULL, 0, NULL, 0 }
+        $result.='            { NULL, 0, NULL, 0 }
         };
 
     // Parse options
