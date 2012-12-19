@@ -4,7 +4,7 @@ namespace Dafuer\GetOptGeneratorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Dafuer\GetOptGeneratorBundle\Util\Util;
-use Dafuer\GetOptGeneratorBundle\Entity\Generator\GeneratorInterface;
+use Dafuer\GetOptGeneratorBundle\Entity\Generator\Generator;
 /**
  * Dafuer\GetOptGeneratorBundle\Entity\Project
  *
@@ -44,10 +44,6 @@ class Project {
     private $description;
     
     
-    public static $LANGUAJE_VALUES=array(
-        'c'=>'C', 
-        'bash'=>'Bash', 
-        );
     /**
      * @var  string $type
      * 
@@ -306,18 +302,23 @@ class Project {
     }    
     protected $generator=null;
     
-    public function setGenerator(GeneratorInterface $generator){
+    public function setGenerator(Generator $generator){
         $this->generator=$generator;
+        $generator->setProject($this);
     }
     
+    public function getGenerator(){
+        return $this->generator;
+    }
+    
+    /*
     public function getCode(){
         if($this->generator==null){
             return "";
         }else{
             return $this->generator->getCode($this);
         }
-    }
-    
+    }*/   
 
     /**
      * Set created
@@ -390,5 +391,9 @@ class Project {
     public function getLanguaje()
     {
         return $this->languaje;
+    }
+    
+    public static function getValidLanguajes(){
+            return Generator::$LANGUAJES;
     }
 }

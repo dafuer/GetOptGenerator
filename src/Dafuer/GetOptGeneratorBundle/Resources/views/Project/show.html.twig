@@ -33,7 +33,22 @@
 
 <BR/>
 
-<div class="alert alert-info" style="text-align: right">
+
+
+<div class="alert alert-info">   
+    <div style="position:absolute;text-align:left" >
+        <span style="color: black; vertical-align: text-bottom">
+            Display code in: 
+        </span>
+
+        <select class="input-medium"  onchange="window.location = this.options[this.selectedIndex].getAttribute('data-url');">
+            {% for lang,route in languajes %}
+                <option value="" {% if lang == entity.generator.id %}selected="true"{% endif %} data-url="{{ route }}">{{ lang }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div style="text-align:right;">
         <a href="#"  id="copy-code" class="btn btn-primary">
             <i class="icon-paste icon-white"></i> Copy to clipboard
         </a>   
@@ -45,12 +60,14 @@
             <a href="{{ path('DafuerGetOptGeneratorBundle_project_download_session' ) }}"  class="btn btn-primary">
                 <i class="icon-download-alt icon-white"></i> Download
             </a>
-        {% endif %}
-</div>
+        {% endif %}        
+    </div>
+ </div>
+
 <pre>
-<h2>Source code generated in C</h2>
+<h2>Source code generated in {{ entity.generator.name }}</h2>
 <div id="source-code">
-  {{ entity.getCode() }}
+  {{ entity.generator.code }}
 </div>
 </pre>
 {% if entity.created|date('Y-m-d H:i:s') != entity.updated|date('Y-m-d H:i:s') %}
@@ -110,31 +127,6 @@
     </div>
     </div>
 
-
-        {#<form action="{{ path('project_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>#}
-
-{#
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('project') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('project_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('project_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-    </li>
-</ul>#}
 {% endblock %}
 
 

@@ -74,8 +74,22 @@ class ProjectController extends Controller
         
         $entity->setGenerator($generator);
 
+        
+        // Prepairing select languaje combo
+        $route='';
+        if($this->get('security.context')->getToken()->getUser()=="anon."){
+            $route='DafuerGetOptGeneratorBundle_project_show_session';
+        }else{
+            $route='DafuerGetOptGeneratorBundle_project_show';
+        }
+        $languajes=array();
+        foreach (Project::getValidLanguajes() as $code=>$languaje){
+            $languajes[$languaje]=$this->get('router')->generate($route,array('id' => $id, 'lang'=>$code));
+        }
+        
         return $this->render('DafuerGetOptGeneratorBundle:Project:show.html.twig', array(
-            'entity'      => $entity
+            'entity'      => $entity,
+            'languajes'   => $languajes,
         ));
     }
     

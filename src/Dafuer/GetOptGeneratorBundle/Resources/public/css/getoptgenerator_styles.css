@@ -46,3 +46,11 @@ table thead th{
 .alert-info{
     border-color: #3A87AD;    
 }
+
+select{
+    background-color: white;
+    border: 1px solid #CCC;
+    display: inline-block;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}

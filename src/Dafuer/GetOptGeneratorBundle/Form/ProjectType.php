@@ -29,7 +29,7 @@ class ProjectType extends AbstractType {
                     )
                 ))
                 ->add('languaje', 'choice', array(
-                    'choices'=>Project::$LANGUAJE_VALUES,
+                    'choices'=>Project::getValidLanguajes(),
                     'required'    => true,
                     'empty_value' => 'Choose languaje',
                     'empty_data'  => null,
