@@ -1,4 +1,5 @@
 
+    // To copy to clipboard
     $(document).ready(function(){
         $('a#copy-code').zclip({
             path: zeroswfpath,
@@ -6,3 +7,6 @@
             afterCopy:function(){}
         });
     });
+
+    // Block type y args is not enabled
+    
