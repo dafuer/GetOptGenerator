@@ -18,12 +18,12 @@
     <tbody>
     {% for option in entity.projectOptions %}
         <tr>
-            <td>{{ option.shortName }}</td>
-            <td>{{ option.longName }}</td>
+            <td>{{ option.shortName?option.shortName:'-' }}</td>
+            <td>{{ option.longName?option.longName:'-' }}</td>
             <td>{{ option.arguments==1?'yes':'no' }}</td>
             <td>{{ option.mandatory==1?'yes':'no' }}</td>
             <td>{{ option.type?option.type:'-' }}</td>
-            <td>{{ option.description }}</td>
+            <td>{{ option.description?option.description:'-' }}</td>
         </tr>
     {% endfor %}
     </tbody>

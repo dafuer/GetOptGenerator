@@ -61,7 +61,20 @@ void help(){
         
         foreach($this->project->getProjectOptions() as $option){
             $result.='
-    printf("-'.$option->getShortName().' or --'.$option->getLongName().': '.$option->getDescription().'\n");';
+    printf("';
+            if($option->getShortName()!==null){
+                $result.='-'.$option->getShortName();
+            }
+            if($option->getLongName()!==null){
+                if($option->getShortName()!==null){
+                    $result.=' or ';
+                }
+                $result.='--'.$option->getLongName();
+            }
+            if($option->getDescription()!=null){
+                $result.=': '.$option->getDescription();
+            }
+            $result.='\n");';
             
         }
         $result.='
