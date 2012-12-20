@@ -62,7 +62,11 @@
             <td>{{ form_widget(option.longName) }}</td>
             <td>{{ form_widget(option.arguments) }}</td>
             <td>{{ form_widget(option.mandatory) }}</td>
-            <td>{{ form_widget(option.type) }}</td>
+            {% if (option.get('value').arguments==1) %}
+                <td>{{ form_widget(option.type, { 'attr': {'disabled': true } }) }}</td>
+            {% else %}
+                <td>{{ form_widget(option.type) }}</td>
+            {% endif %}
             <td>{{ form_widget(option.description) }}</td>
             <td>
                 <a class="btn btn-danger" data-collection-remove-btn="#dafuer_getoptgeneratorbundle_projecttype_projectOptions_0_control_group"><i class="icon-trash icon-white"></i></a>

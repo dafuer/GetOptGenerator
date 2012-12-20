@@ -62,7 +62,7 @@ class ProjectOption
     /**
      * @var  string $type
      * 
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $type='undefined';
     
@@ -271,7 +271,7 @@ class ProjectOption
      */
     public function setType( $type)
     {
-        if (!in_array($type, array_keys($this::$TYPE_VALUES))) {
+        if (!in_array($type, array_keys($this::$TYPE_VALUES)) && $type!==null) {
             throw new \InvalidArgumentException("Invalid type");
         }
         

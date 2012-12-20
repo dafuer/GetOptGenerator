@@ -43,7 +43,8 @@ class ProjectOptionType extends AbstractType
             ->add('type', 'choice', array(
                 'choices' => ProjectOption::$TYPE_VALUES,
                 'label_render' => false,
-                'required'=>true,
+                'empty_value'=>false,
+                'required'=>false,
                 'attr'=>array('class'=>'input-small',
                     )
             ))                
