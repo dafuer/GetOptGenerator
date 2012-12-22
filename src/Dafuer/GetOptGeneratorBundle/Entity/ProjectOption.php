@@ -291,6 +291,18 @@ class ProjectOption
         return $this->type;
     }
     
+    /**
+     * Return a name of this option. If longname is defined return it, otherwise
+     * return shortname
+     * @return string option name
+     */
+    public function getOptionName(){
+        if ($this->getLongName()!=null){
+            return $this->getLongName();
+        }else{
+            return $this->getShortName();
+        }
+    }
       
     
 }

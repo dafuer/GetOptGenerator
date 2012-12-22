@@ -95,7 +95,49 @@ int main(int argc, char *argv[]){';
         
         $result.='
     // Here your var definition
-
+    
+    // Here flags (options without arguments) and arguments with defined type
+';
+    // Active flags (options witouth arguments)
+    foreach($this->project->getProjectOptions() as $option){
+        if ($option->getShortName()=='h' && $this->project->hasHelp()){
+            
+        }else{
+            if($option->getArguments()==0){
+                $result.='    char '.$option->getOptionName().'=0;
+';
+            }
+            if($option->getArguments()!=1 && $option->getType()!='undefined'){
+                $result.='    ';
+                switch ($option->getType()){
+                    case "integer":
+                        $result.='int ';
+                        break;
+                    case "double":
+                        $result.='double ';
+                        break;
+                    case "char":
+                        $result.='char ';
+                        break;
+                    case "boolean":
+                        $result.='char ';
+                        break;
+                    case "string":
+                        $result.='char *';
+                        break;
+                   case "date":
+                        $result.='struct tm *';
+                        break;
+                   case "datetime":
+                        $result.='struct tm *';
+                        break;
+                }
+                $result.=$option->getOptionName().';
+';            
+            }
+        }
+    }
+    $result.='
     // GetOpt option definition
 ';
         foreach($this->project->getProjectOptions() as $option){
@@ -103,10 +145,10 @@ int main(int argc, char *argv[]){';
                 // Do nothing
             }else{
                 if($option->getArguments()==true){
-                    $result.='    char *opt_'.$option->getLongname().'=0;
+                    $result.='    char *opt_'.$option->getOptionName().'=0;
 ';
                 }else{
-                    $result.='    char opt_'.$option->getLongname().'=0;
+                    $result.='    char opt_'.$option->getOptionName().'=0;
 ';
                 }
             }
@@ -121,9 +163,11 @@ $result.='
     const struct option long_options[] =
         {
 ';
+        $count=1;
         foreach($this->project->getProjectOptions() as $option){
-            $result.='            { "'.$option->getLongname().'", '.($option->getArguments()==true?'1':'0').', NULL, \''.$option->getShortname().'\' },
+            $result.='            { "'.$option->getLongname().'", '.($option->getArguments()==true?'1':'0').', NULL, \''.(!is_null($option->getShortname())?$option->getShortname():$count).'\' },
 ';
+            $count++;
         }
         $result.='            { NULL, 0, NULL, 0 }
         };
@@ -138,6 +182,7 @@ $result.='
 
         switch (next_option){
 ';
+        $count=1;
         foreach($this->project->getProjectOptions() as $option){
             if($option->getShortname()=='h' && $option->getLongname()=='help'){
                 $result.='
@@ -147,10 +192,23 @@ $result.='
 ';              
             }else{
             $result.='
-            case \''.$option->getShortname().'\' : // -'.$option->getShortname().' or --'.$option->getLongname().'
-                opt_'.$option->getLongname().'=optarg;
+            case \''.(!is_null($option->getShortname())?$option->getShortname():$count).'\' : // ';
+                if($option->getShortName()!==null){
+                    $result.='-'.$option->getShortName();
+                }
+                if($option->getLongName()!==null){
+                    if($option->getShortName()!==null){
+                        $result.=' or ';
+                    }
+                    $result.='--'.$option->getLongName();
+                } 
+                $result.='
+                opt_'.$option->getLongname().'=optarg;';
+                
+                $result.='
                 break;';
             }
+            $count++;
         }
 
          $result.='
@@ -192,6 +250,8 @@ $result.='
          $result.='        exit(-1);
     }';
     }
+
+    
    // Last, iterate over other values
    $result.='
         
