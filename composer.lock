@@ -355,12 +355,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "af60afd29a9007cebd7fd5271efe2ce22e886c37"
+                "reference": "618b95d373f67c075a0d6f61339066bb061a0b71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/af60afd29a9007cebd7fd5271efe2ce22e886c37.zip",
-                "reference": "af60afd29a9007cebd7fd5271efe2ce22e886c37",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/618b95d373f67c075a0d6f61339066bb061a0b71.zip",
+                "reference": "618b95d373f67c075a0d6f61339066bb061a0b71",
                 "shasum": ""
             },
             "require": {
@@ -381,7 +381,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "2012-12-20 17:26:02",
+            "time": "2012-12-22 15:52:39",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
