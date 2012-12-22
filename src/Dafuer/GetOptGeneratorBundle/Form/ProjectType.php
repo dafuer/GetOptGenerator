@@ -13,6 +13,7 @@ class ProjectType extends AbstractType {
         $builder
                 ->add('name',null,array(
                     'label_render' => false,
+                    'required'=>true,
                     'attr'=>array(
                         'class'=>'input-xxlarge',
                         'placeholder'=>'Project Name',
@@ -22,6 +23,7 @@ class ProjectType extends AbstractType {
                 
                 ->add('description',null,array(
                     'label_render' => false,
+                    'required'=>true,
                     'attr'=>array(
                         'class'=>'input-xlarge',
                         'placeholder'=>'Description',
