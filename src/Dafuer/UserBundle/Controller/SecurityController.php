@@ -2,6 +2,7 @@
 
 namespace Dafuer\UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\UserBundle\Controller\SecurityController as BaseController;
 
@@ -11,8 +12,8 @@ class SecurityController extends BaseController {
      * Override this method because it has the hability to obtain more get variable.
      * This variable allows display compact or complete form
      */
-    public function loginAction() {
-        $response = parent::loginAction();
+    public function loginAction(Request $request) {
+        $response = parent::loginAction($request);
         return $response;
     }
 
