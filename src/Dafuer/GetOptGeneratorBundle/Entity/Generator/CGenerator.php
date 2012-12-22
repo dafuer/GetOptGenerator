@@ -43,6 +43,7 @@ class CGenerator  extends Generator
     public function getCHeaderCode(){
         return "#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <getopt.h>
 
 ";
@@ -107,7 +108,7 @@ int main(int argc, char *argv[]){';
                 $result.='    char '.$option->getOptionName().'=0;
 ';
             }
-            if($option->getArguments()!=1 && $option->getType()!='undefined'){
+            if($option->getArguments()==1 && $option->getType()!='undefined'){
                 $result.='    ';
                 switch ($option->getType()){
                     case "integer":
@@ -148,8 +149,8 @@ int main(int argc, char *argv[]){';
                     $result.='    char *opt_'.$option->getOptionName().'=0;
 ';
                 }else{
-                    $result.='    char opt_'.$option->getOptionName().'=0;
-';
+//                    $result.='    char opt_'.$option->getOptionName().'=0;
+//';
                 }
             }
         }        
@@ -203,16 +204,71 @@ $result.='
                     $result.='--'.$option->getLongName();
                 } 
                 $result.='
-                opt_'.$option->getLongname().'=optarg;';
+                opt_'.$option->getLongname().'=optarg;
+';
+                // Here updating vars.
+                if($option->getArguments()==0){
+                    $result.='                '.$option->getOptionName().'=1;
+';
+                }
+                if($option->getArguments()==1 && $option->getType()!='undefined'){
+                    $result.='                ';
+                    switch ($option->getType()){
+                        case "integer":
+                            $result.=$option->getOptionName().'=atoi(opt_'.$option->getOptionName().');';
+                            break;
+                        case "double":
+                            $result.=$option->getOptionName().'=atof(opt_'.$option->getOptionName().');';
+                            break;
+                        case "char":
+                            $result.=$option->getOptionName().'=opt_'.$option->getOptionName().'[0];';
+                            break;
+                        case "boolean":
+                            $result.='if(strcmp(opt_'.$option->getOptionName().',"true") || atoi(opt_'.$option->getOptionName().')==1){
+                    '.$option->getOptionName().'=1;
+                }else{
+                    '.$option->getOptionName().'=0;
+                }';
+                            break;
+                        case "string":
+                            $result.=$option->getOptionName().'=(char *)malloc(sizeof(char) * (strlen(opt_'.$option->getOptionName().')+1));
+                strcpy('.$option->getOptionName().',opt_'.$option->getOptionName().');';
+                            break;
+                       case "date":
+                            $result.='if (strlen('.$option->getOptionName().')!=10 || '.$option->getOptionName().'[4]!=\'-\' || '.$option->getOptionName().'[7]!=\'-\'){
+                    printf("'.$option->getOptionName().' is not a valid date");
+                    exit(-1);
+                }
+                '.$option->getOptionName().'=(struct tm *)malloc(sizeof(struct tm *));
+                sscanf( opt_'.$option->getOptionName().', "%d-%d-%d", &'.$option->getOptionName().'->tm_year,&'.$option->getOptionName().'->tm_mon, &'.$option->getOptionName().'->tm_mday);
+                '.$option->getOptionName().'->tm_mon='.$option->getOptionName().'->tm_mon-1;
+                '.$option->getOptionName().'->tm_year='.$option->getOptionName().'->tm_year-1900;
+                '.$option->getOptionName().'->tm_hour=0;
+                '.$option->getOptionName().'->tm_min=0;
+                '.$option->getOptionName().'->tm_sec=0;';
+                            break;
+                       case "datetime":
+                            $result.='if (strlen('.$option->getOptionName().')!=19 || '.$option->getOptionName().'[4]!=\'-\' || '.$option->getOptionName().'[7]!=\'-\' || '.$option->getOptionName().'[13]!=\':\' || '.$option->getOptionName().'[16]!=\':\'){
+                    printf("'.$option->getOptionName().' is not a valid date");
+                    exit(-1);
+                }
+                '.$option->getOptionName().'=(struct tm *)malloc(sizeof(struct tm *));
+                sscanf( opt_'.$option->getOptionName().', "%d-%d-%d %d:%d:%d", &'.$option->getOptionName().'->tm_year,&'.$option->getOptionName().'->tm_mon, &'.$option->getOptionName().'->tm_mday, &'.$option->getOptionName().'->tm_hour, &'.$option->getOptionName().'->tm_min, &'.$option->getOptionName().'->tm_sec);
+                '.$option->getOptionName().'->tm_mon='.$option->getOptionName().'->tm_mon-1;
+                '.$option->getOptionName().'->tm_year='.$option->getOptionName().'->tm_year-1900;';
+                            break;
+                    }
+                    $result.='
+';            
+                }                
                 
-                $result.='
-                break;';
+                $result.='                break;
+';
             }
             $count++;
         }
 
          $result.='
-
             case \'?\' : // Invalid option
                 '.($this->project->hasHelp()?'help(); // Return help':'').'
                 return(1);
