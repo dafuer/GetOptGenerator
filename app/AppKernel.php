@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new ManyMules\ManyMulesFontAwesomeBundle\ManyMulesFontAwesomeBundle(),
             new FOS\UserBundle\FOSUserBundle(), 
             new AntiMattr\GoogleBundle\GoogleBundle(),
+            new Highlight\Bundle\HighlightBundle(),   
             new Dafuer\UserBundle\DafuerUserBundle(),
         );
 

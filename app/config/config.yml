@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: "@HighlightBundle/Resources/config/config.yml" }    
 
     
 framework:
@@ -28,7 +29,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ MopaBootstrapBundle, DafuerGetOptGeneratorBundle ]
+    bundles:        [ MopaBootstrapBundle, DafuerGetOptGeneratorBundle, HighlightBundle ]
     #java: /usr/bin/java
     filters:
         less:
@@ -113,3 +114,21 @@ google:
                 accountId: %google_analytics_id%
                 domain:     getoptgenerator.dafuer.es
                 trackPageLoadTime: true
+                
+highlight:
+   # Each provider in this list are use on after other
+   # if language given in template ins't allowed
+   providers: [ geshi ]
+   # All globals options can be rewrite in a specific provider
+   # except cssclass who just added
+   globals:
+       linenos: false
+       blockstyles: ""
+       cssclass: highlight
+
+   geshi:
+       linenos: false
+       # Two possibilities fancy or normal
+       linestyle: normal
+       cssclass: geshi          
+       

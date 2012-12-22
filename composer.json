@@ -25,7 +25,8 @@
         "craue/formflow-bundle": "dev-master",
         "manymules/fontawesome-bundle": "*",
         "friendsofsymfony/user-bundle": "*",
-        "antimattr/google-bundle": "dev-master"
+        "antimattr/google-bundle": "dev-master",
+        "nicodmf/highlight-bundle": "2.1.*"
     },
     "scripts": {
         "post-install-cmd": [
