@@ -3,7 +3,7 @@
     $(document).ready(function(){
         $('a#copy-code').zclip({
             path: zeroswfpath,
-            copy:function() {return $("#source-code").text(); },
+            copy:function() {return $("#source-code-hidden").text(); },
             afterCopy:function(){}
         });
     });
@@ -19,15 +19,3 @@
             $('[id='+id+']').attr('disabled', true);
         }
     });
-
-   /* $('[id=dafuer_getoptgeneratorbundle_projecttype_projectOptions_0_arguments]').ready(function(){
-        var id=$(this).attr('id').replace('arguments','type');
-
-        if($(this).is(':checked')){
-            $('[id='+id+']').attr('disabled', true);
-            
-        }else{
-            $('[id='+id+']').attr('disabled', false);
-        }
-    });*/
-
