@@ -27,7 +27,7 @@ Also you can have implemented the help function. This information will be displa
 -h or --help option. This help contains information about how to run your project.
 </p>
 <BR/><BR/>
-<h2>2) What languages are supported?</h2>
+<h2>3) What languages are supported?</h2>
 <BR />
 <p>
 Currently, GetOptGenerator support the following languages:
@@ -37,7 +37,18 @@ Currently, GetOptGenerator support the following languages:
 {% endfor %}
 </ul>
 </p>
-</div>
+{#<BR/><BR/>
+<h2>4) What languages are supported?</h2>
+<BR />
+<p>
+Currently, GetOptGenerator support the following languages:
+<ul>
+{% for language in languages%}
+        <li>{{ language }}</li>
+{% endfor %}
+</ul>
+</p>#}
+</div>        
 
 </center>
 <span data-test-status="ok" data-test-route="{{ app.request.attributes.get('_route') }}"></span>
