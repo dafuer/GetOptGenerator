@@ -57,7 +57,53 @@ class CGenerator  extends Generator
         
         $result.='// Display help information
 void help(){
-    printf("'.$this->project->getSlug().' - '.$this->project->getDescription().'\n");
+    printf("'.$this->project->getSlug().' - '.$this->project->getDescription().'\n\n");
+    printf("Usage example:\n");
+    printf("'.$this->project->getSlug();
+    // First mandatory options
+    foreach($this->project->getProjectOptions() as $option){
+        if($option->getMandatory()==1){
+           if($option->getShortName()!=null && $option->getLongName()!=null){
+                       $result.=' (-'.$option->getShortName().'|--'.$option->getLongName().')';
+           }else{
+               if($option->getShortName()!=null){
+                    $result.=' -'.$option->getShortName();
+               }else{
+                    $result.=' --'.$option->getLongName();
+               }
+           }   
+           if($option->getArguments()==1){
+               if($option->getType()!='undefined'){
+                   $result.=' '.$option->getType();
+               }else{
+                   $result.=' value';
+               }
+           }
+        }
+    }    
+    // Second, optional options
+    foreach($this->project->getProjectOptions() as $option){
+        if($option->getMandatory()==0){
+           if($option->getShortName()!=null && $option->getLongName()!=null){
+                       $result.=' [(-'.$option->getShortName().'|--'.$option->getLongName().')';
+           }else{
+               if($option->getShortName()!=null){
+                    $result.=' [-'.$option->getShortName();
+               }else{
+                    $result.=' [--'.$option->getLongName();
+               }
+           }   
+           if($option->getArguments()==1){
+               if($option->getType()!='undefined'){
+                   $result.=' '.$option->getType();
+               }else{
+                   $result.=' value';
+               }
+           }
+           $result.=']';
+        }
+    }       
+    $result.='\n\n");
     printf("Options:\n");';
         
         foreach($this->project->getProjectOptions() as $option){
