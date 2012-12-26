@@ -44,6 +44,7 @@ class CGenerator  extends Generator
         return "#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <getopt.h>
 
 ";
@@ -118,9 +119,16 @@ void help(){
                 }
                 $result.='--'.$option->getLongName();
             }
-            if($option->getDescription()!=null){
-                $result.=': '.$option->getDescription();
+            if($option->getArguments()==1 && $option->getType()!='undefined'){
+                $result.=' '.$option->getType();
             }
+            if($option->getDescription()!=null){
+                $result.=': '.$option->getDescription().'.';
+            }
+            if($option->getMandatory()==1){
+                $result.=' Required.';
+            }
+            
             $result.='\n");';
             
         }
@@ -188,7 +196,7 @@ int main(int argc, char *argv[]){';
     // GetOpt option definition
 ';
         foreach($this->project->getProjectOptions() as $option){
-            if($option->getShortname()=='h' && $option->getLongname()=='help'){
+            if($option->getShortName()=='h' && $option->getLongName()=='help'){
                 // Do nothing
             }else{
                 if($option->getArguments()==true){
@@ -204,7 +212,7 @@ $result.='
     int next_option;
     const char* const short_options = "';
         foreach($this->project->getProjectOptions() as $option){
-            $result.=$option->getShortname().($option->getArguments()==true?':':'');
+            $result.=$option->getShortName().($option->getArguments()==true?':':'');
         }
         $result.='" ;
     const struct option long_options[] =
@@ -212,7 +220,7 @@ $result.='
 ';
         $count=1;
         foreach($this->project->getProjectOptions() as $option){
-            $result.='            { "'.$option->getLongname().'", '.($option->getArguments()==true?'1':'0').', NULL, \''.(!is_null($option->getShortname())?$option->getShortname():$count).'\' },
+            $result.='            { "'.$option->getLongName().'", '.($option->getArguments()==true?'1':'0').', NULL, \''.(!is_null($option->getShortName())?$option->getShortName():$count).'\' },
 ';
             $count++;
         }
@@ -231,7 +239,7 @@ $result.='
 ';
         $count=1;
         foreach($this->project->getProjectOptions() as $option){
-            if($option->getShortname()=='h' && $option->getLongname()=='help'){
+            if($option->getShortName()=='h' && $option->getLongName()=='help'){
                 $result.='
             case \'h\' : // -h or --help 
                 help();
@@ -239,7 +247,7 @@ $result.='
 ';              
             }else{
             $result.='
-            case \''.(!is_null($option->getShortname())?$option->getShortname():$count).'\' : // ';
+            case \''.(!is_null($option->getShortName())?$option->getShortName():$count).'\' : // ';
                 if($option->getShortName()!==null){
                     $result.='-'.$option->getShortName();
                 }
@@ -249,13 +257,14 @@ $result.='
                     }
                     $result.='--'.$option->getLongName();
                 } 
-                $result.='
-                opt_'.$option->getLongname().'=optarg;
+                if($option->getArguments()==1){
+                    $result.='
+                opt_'.$option->getOptionName().'=optarg;
 ';
-                // Here updating vars.
-                if($option->getArguments()==0){
-                    $result.='                '.$option->getOptionName().'=1;
-';
+                }else{
+                    $result.='
+                '.$option->getOptionName().'=1;
+';                    
                 }
                 if($option->getArguments()==1 && $option->getType()!='undefined'){
                     $result.='                ';
@@ -281,11 +290,11 @@ $result.='
                 strcpy('.$option->getOptionName().',opt_'.$option->getOptionName().');';
                             break;
                        case "date":
-                            $result.='if (strlen('.$option->getOptionName().')!=10 || '.$option->getOptionName().'[4]!=\'-\' || '.$option->getOptionName().'[7]!=\'-\'){
+                            $result.='if (strlen(opt_'.$option->getOptionName().')!=10 || opt_'.$option->getOptionName().'[4]!=\'-\' || opt_'.$option->getOptionName().'[7]!=\'-\'){
                     printf("'.$option->getOptionName().' is not a valid date");
                     exit(-1);
                 }
-                '.$option->getOptionName().'=(struct tm *)malloc(sizeof(struct tm *));
+                '.$option->getOptionName().'=(struct tm *)malloc(sizeof(struct tm));
                 sscanf( opt_'.$option->getOptionName().', "%d-%d-%d", &'.$option->getOptionName().'->tm_year,&'.$option->getOptionName().'->tm_mon, &'.$option->getOptionName().'->tm_mday);
                 '.$option->getOptionName().'->tm_mon='.$option->getOptionName().'->tm_mon-1;
                 '.$option->getOptionName().'->tm_year='.$option->getOptionName().'->tm_year-1900;
@@ -294,11 +303,11 @@ $result.='
                 '.$option->getOptionName().'->tm_sec=0;';
                             break;
                        case "datetime":
-                            $result.='if (strlen('.$option->getOptionName().')!=19 || '.$option->getOptionName().'[4]!=\'-\' || '.$option->getOptionName().'[7]!=\'-\' || '.$option->getOptionName().'[13]!=\':\' || '.$option->getOptionName().'[16]!=\':\'){
+                            $result.='if (strlen(opt_'.$option->getOptionName().')!=19 || opt_'.$option->getOptionName().'[4]!=\'-\' || opt_'.$option->getOptionName().'[7]!=\'-\' || opt_'.$option->getOptionName().'[13]!=\':\' || opt_'.$option->getOptionName().'[16]!=\':\'){
                     printf("'.$option->getOptionName().' is not a valid date");
                     exit(-1);
                 }
-                '.$option->getOptionName().'=(struct tm *)malloc(sizeof(struct tm *));
+                '.$option->getOptionName().'=(struct tm *)malloc(sizeof(struct tm));
                 sscanf( opt_'.$option->getOptionName().', "%d-%d-%d %d:%d:%d", &'.$option->getOptionName().'->tm_year,&'.$option->getOptionName().'->tm_mon, &'.$option->getOptionName().'->tm_mday, &'.$option->getOptionName().'->tm_hour, &'.$option->getOptionName().'->tm_min, &'.$option->getOptionName().'->tm_sec);
                 '.$option->getOptionName().'->tm_mon='.$option->getOptionName().'->tm_mon-1;
                 '.$option->getOptionName().'->tm_year='.$option->getOptionName().'->tm_year-1900;';
@@ -337,7 +346,7 @@ $result.='
         foreach($this->project->getProjectOptions() as $option){
             if($option->getMandatory()==true){
                   if($mandatory_options!=0)  $result.=' || ';        
-                  $result.='opt_'.$option->getLongname().'==0';
+                  $result.='opt_'.$option->getLongName().'==0';
                   $mandatory_options++;
             }            
         }
