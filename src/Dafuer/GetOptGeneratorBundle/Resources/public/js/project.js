@@ -10,12 +10,14 @@
 
     // Block type y args is not enabled
     function changeArgs(object){  
-            var id=$('[id='+object+']').attr('id').replace('arguments','type');
+            var id_type=$('[id='+object+']').attr('id').replace('arguments','type');
+            var id_mandatory=$('[id='+object+']').attr('id').replace('arguments','mandatory');
 
             if($('[id='+object+']').is(':checked')){
-                $('[id='+id+']').removeAttr('disabled');
-
+                $('[id='+id_type+']').removeAttr('disabled');
+                $('[id='+id_mandatory+']').removeAttr('disabled');
             }else{
-                $('[id='+id+']').attr('disabled', 'disabled');
+                $('[id='+id_type+']').attr('disabled', 'disabled');
+                $('[id='+id_mandatory+']').attr('disabled', 'disabled');
             }
     }

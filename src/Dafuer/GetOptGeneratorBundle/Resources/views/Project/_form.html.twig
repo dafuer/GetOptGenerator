@@ -61,7 +61,11 @@
             </td>
             <td>{{ form_widget(option.longName) }}</td>
             <td>{{ form_widget(option.arguments) }}</td>
-            <td>{{ form_widget(option.mandatory) }}</td>
+            {% if (option.get('value').arguments==1) %}
+                <td>{{ form_widget(option.mandatory, { 'attr': { } }) }}</td>
+            {% else %}
+                <td>{{ form_widget(option.mandatory, { 'attr': {'disabled': 'disabled' } }) }}</td>
+            {% endif %}            
             {% if (option.get('value').arguments==1) %}
                 <td>{{ form_widget(option.type, { 'attr': { } }) }}</td>
             {% else %}
