@@ -30,7 +30,9 @@ class ProjectOptionType extends AbstractType
                 'label_render' => false,
                 'required'=>false,
                 'attr'=>array(
-                            'style'=>'margin-top:9px'
+                            'style'=>'margin-top:9px',
+                    
+                    'onChange'=>'changeArgs($(this).attr("id"))'
                     )
             )) 
             ->add('mandatory', null, array( 
@@ -46,6 +48,7 @@ class ProjectOptionType extends AbstractType
                 'empty_value'=>false,
                 'required'=>false,
                 'attr'=>array('class'=>'input-small',
+                    //'disabled'=>'disabled'
                     )
             ))                
             ->add('description', null, array( 

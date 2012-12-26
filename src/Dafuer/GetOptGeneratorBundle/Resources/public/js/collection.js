@@ -54,6 +54,10 @@
             //alert(row.html());
             $('' + this.options.collection_id + '> .controls').append(row);
             $(this.options.collection_id).trigger('add.mopa-collection-item', [row]);
+            
+            var arg_id=$(this.options.collection_id).attr('id').replace('control_group',index+'_arguments');
+            changeArgs(arg_id);
+            //$(arg_id).trigger('change');
         },
         remove: function () {
                 if (this.$element.parents('td').parents('tr').length !== 0){

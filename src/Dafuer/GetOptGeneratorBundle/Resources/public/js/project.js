@@ -9,13 +9,13 @@
     });
 
     // Block type y args is not enabled
-    $('[id$=arguments]').change(function(){
-        var id=$(this).attr('id').replace('arguments','type');
+    function changeArgs(object){  
+            var id=$('[id='+object+']').attr('id').replace('arguments','type');
 
-        if($(this).is(':checked')){
-            $('[id='+id+']').attr('disabled', false);
-            
-        }else{
-            $('[id='+id+']').attr('disabled', true);
-        }
-    });
+            if($('[id='+object+']').is(':checked')){
+                $('[id='+id+']').removeAttr('disabled');
+
+            }else{
+                $('[id='+id+']').attr('disabled', 'disabled');
+            }
+    }
