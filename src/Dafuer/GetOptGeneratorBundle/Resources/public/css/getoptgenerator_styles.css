@@ -54,3 +54,8 @@ select{
     -moz-border-radius: 4px;
 }
 
+.email{
+ unicode-bidi:bidi-override;
+ direction: rtl;
+}
+
