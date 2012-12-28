@@ -153,6 +153,14 @@ int main(int argc, char *argv[]){';
     
     // Here flags (options without arguments) and arguments with defined type
 ';
+    // Find if there are date or datetime types
+    foreach($this->project->getProjectOptions() as $option){ 
+        if($option->getArguments()==1 && ($option->getType()=='date' || $option->getType()=='datetime')){
+            $result.='    char tmpchar[25];
+';
+            break;
+        }
+    }   
     // Active flags (options witouth arguments)
     foreach($this->project->getProjectOptions() as $option){
         if ($option->getShortName()=='h' && $this->project->hasHelp()){
@@ -290,12 +298,15 @@ $result.='
                 strcpy('.$option->getOptionName().',opt_'.$option->getOptionName().');';
                             break;
                        case "date":
-                            $result.='if (strlen(opt_'.$option->getOptionName().')!=10 || opt_'.$option->getOptionName().'[4]!=\'-\' || opt_'.$option->getOptionName().'[7]!=\'-\'){
-                    printf("'.$option->getOptionName().' is not a valid date");
+                            $result.='if (strlen(opt_'.$option->getOptionName().')<10 || opt_'.$option->getOptionName().'[4]!=opt_'.$option->getOptionName().'[7] || (opt_'.$option->getOptionName().'[4]!=\'-\' && opt_'.$option->getOptionName().'[4]!=\'/\') || (opt_'.$option->getOptionName().'[7]!=\'-\'  && opt_'.$option->getOptionName().'[7]!=\'/\')){
+                    printf("'.$option->getOptionName().' is not a valid date (format: yyyy-mm-dd)\n");
                     exit(-1);
                 }
                 '.$option->getOptionName().'=(struct tm *)malloc(sizeof(struct tm));
-                sscanf( opt_'.$option->getOptionName().', "%d-%d-%d", &'.$option->getOptionName().'->tm_year,&'.$option->getOptionName().'->tm_mon, &'.$option->getOptionName().'->tm_mday);
+                ';
+                $result.="sprintf(tmpchar,\"%%d%c%%d%c%%d\", opt_".$option->getOptionName()."[4], opt_".$option->getOptionName()."[4]);";
+                $result.='
+                sscanf( opt_'.$option->getOptionName().', tmpchar, &'.$option->getOptionName().'->tm_year,&'.$option->getOptionName().'->tm_mon, &'.$option->getOptionName().'->tm_mday);
                 '.$option->getOptionName().'->tm_mon='.$option->getOptionName().'->tm_mon-1;
                 '.$option->getOptionName().'->tm_year='.$option->getOptionName().'->tm_year-1900;
                 '.$option->getOptionName().'->tm_hour=0;
@@ -303,12 +314,15 @@ $result.='
                 '.$option->getOptionName().'->tm_sec=0;';
                             break;
                        case "datetime":
-                            $result.='if (strlen(opt_'.$option->getOptionName().')!=19 || opt_'.$option->getOptionName().'[4]!=\'-\' || opt_'.$option->getOptionName().'[7]!=\'-\' || opt_'.$option->getOptionName().'[13]!=\':\' || opt_'.$option->getOptionName().'[16]!=\':\'){
-                    printf("'.$option->getOptionName().' is not a valid date");
+                            $result.='if (strlen(opt_'.$option->getOptionName().')<19 || opt_'.$option->getOptionName().'[4]!=opt_'.$option->getOptionName().'[7] || opt_'.$option->getOptionName().'[13]!=opt_'.$option->getOptionName().'[16] || (opt_'.$option->getOptionName().'[4]!=\'-\' && opt_'.$option->getOptionName().'[4]!=\'-\') || (opt_'.$option->getOptionName().'[7]!=\'-\' && opt_'.$option->getOptionName().'[7]!=\'/\') || (opt_'.$option->getOptionName().'[13]!=\':\' && opt_'.$option->getOptionName().'[13]!=\'.\') || (opt_'.$option->getOptionName().'[16]!=\':\' && opt_'.$option->getOptionName().'[16]!=\'.\')){
+                    printf("'.$option->getOptionName().' is not a valid datetime (format: yyyy-mm-dd hh:mm:ss)\n");
                     exit(-1);
                 }
                 '.$option->getOptionName().'=(struct tm *)malloc(sizeof(struct tm));
-                sscanf( opt_'.$option->getOptionName().', "%d-%d-%d %d:%d:%d", &'.$option->getOptionName().'->tm_year,&'.$option->getOptionName().'->tm_mon, &'.$option->getOptionName().'->tm_mday, &'.$option->getOptionName().'->tm_hour, &'.$option->getOptionName().'->tm_min, &'.$option->getOptionName().'->tm_sec);
+                ';
+                $result.="sprintf(tmpchar,\"%%d%c%%d%c%%d %%d%c%%d%c%%d\", opt_".$option->getOptionName()."[4], opt_".$option->getOptionName()."[4], opt_".$option->getOptionName()."[13], opt_".$option->getOptionName()."[13]);";
+                $result.='
+                sscanf( opt_'.$option->getOptionName().', tmpchar, &'.$option->getOptionName().'->tm_year,&'.$option->getOptionName().'->tm_mon, &'.$option->getOptionName().'->tm_mday, &'.$option->getOptionName().'->tm_hour, &'.$option->getOptionName().'->tm_min, &'.$option->getOptionName().'->tm_sec);
                 '.$option->getOptionName().'->tm_mon='.$option->getOptionName().'->tm_mon-1;
                 '.$option->getOptionName().'->tm_year='.$option->getOptionName().'->tm_year-1900;';
                             break;
@@ -372,7 +386,8 @@ $result.='
         
         optind++;
     }
-        
+
+    return 0;
 }';
 
         return $result;
