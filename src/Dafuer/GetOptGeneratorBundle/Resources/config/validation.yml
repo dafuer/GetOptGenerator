@@ -2,7 +2,9 @@ Dafuer\GetOptGeneratorBundle\Entity\Project:
     properties:
         name:
             - NotBlank: ~ 
-        name:
+        description:
+            - NotBlank: ~             
+        language:
             - NotBlank: ~             
     getters:
         repeatedShortOption:
