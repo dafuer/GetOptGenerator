@@ -277,16 +277,23 @@ class Project {
         return $this->description;
     }
     
+    private $hasHelp=null;
     /**
      * Is this project using a help description?
      * @return boolean
      */
     public function hasHelp(){
-        foreach($this->getProjectOptions() as $option){
-            if($option->getShortname()=='h' && $option->getLongname()=='help') return true;
+        if($this->hasHelp==null){
+            $this->hasHelp=false;
+            foreach($this->getProjectOptions() as $option){
+                if($option->getShortname()=='h' && $option->getLongname()=='help' && $option->getArguments()==0){
+                    $this->hasHelp=true;
+                    break;
+                }
+            }
         }
         
-        return false;
+        return $this->hasHelp;
     }
     
     /**

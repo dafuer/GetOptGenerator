@@ -4,19 +4,19 @@ DafuerGetOptGeneratorBundle_project:
 
 DafuerGetOptGeneratorBundle_project_show_session:
     pattern:  /show/{lang}
-    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:show", 'id':-1, lang: 'C' }
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:show", 'id':-1, lang: null }
 
 DafuerGetOptGeneratorBundle_project_show:
     pattern:  /{id}/show/{lang}
-    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:show", lang: 'C' }
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:show", lang: null }
 
 DafuerGetOptGeneratorBundle_project_download_session:
     pattern:  /download/{lang}
-    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:download", 'id':-1, lang: 'C' }
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:download", 'id':-1, lang: null }
 
 DafuerGetOptGeneratorBundle_project_download:
     pattern:  /{id}/download/{lang}
-    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:download", lang: 'C' }
+    defaults: { _controller: "DafuerGetOptGeneratorBundle:Project:download", lang: null }
 
 DafuerGetOptGeneratorBundle_project_new:
     pattern:  /new

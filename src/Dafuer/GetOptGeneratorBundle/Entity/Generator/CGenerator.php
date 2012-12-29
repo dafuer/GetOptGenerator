@@ -32,15 +32,15 @@ class CGenerator  extends Generator
      * Call al function to generate C sources
      */
     public function getCode(){
-        return $this->getCHeaderCode($this->project).
-($this->project->hasHelp()?$this->getCHelpCode($this->project):'').'
-'.$this->getCMainCode($this->project);
+        return $this->getHeaderCode($this->project).
+($this->project->hasHelp()?$this->getHelpCode($this->project):'').'
+'.$this->getMainCode($this->project);
     }       
 
     /**
      * Generate and return C headers
      */
-    public function getCHeaderCode(){
+    private function getHeaderCode(){
         return "#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -53,7 +53,7 @@ class CGenerator  extends Generator
     /**
      * Generate and return help function in C 
      */
-    public function getCHelpCode(){
+    private function getHelpCode(){
         $result='';
         
         $result.='// Display help information
@@ -144,7 +144,7 @@ void help(){
     /**
      * Generateand return main function 
      */
-     public function getCMainCode(){
+     private function getMainCode(){
         $result='
 int main(int argc, char *argv[]){';
         
@@ -247,7 +247,7 @@ $result.='
 ';
         $count=1;
         foreach($this->project->getProjectOptions() as $option){
-            if($option->getShortName()=='h' && $option->getLongName()=='help'){
+            if($option->getShortName()=='h' && $this->project->hasHelp()==true){
                 $result.='
             case \'h\' : // -h or --help 
                 help();

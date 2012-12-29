@@ -39,7 +39,7 @@
 
         <select class="input-medium"  onchange="window.location = this.options[this.selectedIndex].getAttribute('data-url');">
             {% for lang,route in languages %}
-                <option value="" {% if lang == entity.generator.id %}selected="true"{% endif %} data-url="{{ route }}">{{ lang }}</option>
+                <option value="" {% if lang == entity.generator.name %}selected="true"{% endif %} data-url="{{ route }}">{{ lang }}</option>
             {% endfor %}
         </select>
     </div>
@@ -49,7 +49,7 @@
             <i class="icon-paste icon-white"></i> Copy to clipboard
         </a>   
         {% if entity.user.id is not null %}
-            <a href="{{ path('DafuerGetOptGeneratorBundle_project_download', { 'id': entity.id }) }}"  class="btn btn-primary">
+            <a href="{{ path('DafuerGetOptGeneratorBundle_project_download', { 'id': entity.id, 'lang': entity.generator.id }) }}"  class="btn btn-primary">
                 <i class="icon-download-alt icon-white"></i> Download
             </a>
         {% else %}
@@ -63,7 +63,7 @@
 <pre>
 <h2>Source code generated in {{ entity.generator.name }}</h2>
 <div id="source-code">
-{% highlight 'c' %}
+{% highlight entity.generator.id %}
 {{ entity.generator.code|raw }}
 {% endhighlight %}
 </div>

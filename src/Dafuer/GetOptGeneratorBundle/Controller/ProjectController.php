@@ -42,7 +42,7 @@ class ProjectController extends Controller
      * Finds and displays a Project entity.
      * (securized)
      */
-    public function showAction($id=-1,$lang="c")
+    public function showAction($id=-1,$lang=null)
     {
         
         $session = $this->getRequest()->getSession();
@@ -67,7 +67,13 @@ class ProjectController extends Controller
             throw $this->createNotFoundException('Unable to find Project entity.');
         }
         
-        $generatorClass="Dafuer\\GetOptGeneratorBundle\\Entity\Generator\\".$lang."Generator";
+        if($lang==null){
+            $lang=$entity->getLanguage();
+        }
+        
+        $languajes=Project::getValidLanguages();
+        $langname=$languajes[$lang];
+        $generatorClass="Dafuer\\GetOptGeneratorBundle\\Entity\Generator\\".$langname."Generator";
             
         
         $generator=new $generatorClass();
@@ -94,7 +100,7 @@ class ProjectController extends Controller
     }
     
     
-    public function downloadAction($id=-1,$lang="c"){
+    public function downloadAction($id=-1,$lang=null){
         
         $session = $this->getRequest()->getSession();
         $entity=null;        
@@ -118,7 +124,13 @@ class ProjectController extends Controller
             throw $this->createNotFoundException('Unable to find Project entity.');
         }
         
-        $generatorClass="Dafuer\\GetOptGeneratorBundle\\Entity\Generator\\".$lang."Generator";
+        if($lang==null){
+            $lang=$entity->getLanguage();
+        }
+        
+        $languajes=Project::getValidLanguages();
+        $langname=$languajes[$lang];        
+        $generatorClass="Dafuer\\GetOptGeneratorBundle\\Entity\Generator\\".$langname."Generator";
             
         
         $generator=new $generatorClass();
