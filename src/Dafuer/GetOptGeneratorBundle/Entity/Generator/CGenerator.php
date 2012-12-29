@@ -133,6 +133,7 @@ void help(){
             
         }
         $result.='
+    exit(1);
 }';
         
  
@@ -253,7 +254,7 @@ $result.='
                 $result.='
             case \'h\' : // -h or --help 
                 help();
-                return(1);
+                break;
 ';              
             }else{
             $result.='
@@ -342,7 +343,6 @@ $result.='
          $result.='
             case \'?\' : // Invalid option
                 '.($this->project->hasHelp()?'help(); // Return help':'').'
-                return(1);
 
             case -1 : // No more options
                 break;
@@ -374,8 +374,7 @@ $result.='
 ';
         
      }
-         $result.='        exit(-1);
-    }';
+         $result.='    }';
     }
 
     
