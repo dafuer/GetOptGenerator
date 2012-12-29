@@ -130,6 +130,14 @@ then
     echo \"".$option->getOptionName()." is required\";
     help;
 fi
+
+# Iterate over rest arguments called \$arg
+for arg in \"\$@\"
+do
+    # Your code here (remove example below)
+    echo \$arg
+
+done
 ";
 
              }
