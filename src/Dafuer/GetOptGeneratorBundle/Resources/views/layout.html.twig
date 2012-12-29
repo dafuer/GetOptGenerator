@@ -43,7 +43,7 @@
     Otherwise the regeneration is done on every load in dev more with use_controller: true
      #}
     {% javascripts
-        'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
+        '@DafuerGetOptGeneratorBundle/Resources/public/js/jquery-1.8.3.min.js'
         '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-modal.js'
         '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-dropdown.js'
         '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-tooltip.js'
@@ -52,6 +52,9 @@
         '@MopaBootstrapBundle/Resources/bootstrap/js/bootstrap-button.js'
         '@DafuerGetOptGeneratorBundle/Resources/public/js/collection.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+        '@DafuerGetOptGeneratorBundle/Resources/public/js/jquery.zclip.min.js'
+        '@DafuerGetOptGeneratorBundle/Resources/public/js/project.js'
+        '@DafuerGetOptGeneratorBundle/Resources/public/js/jquery.placeholder.min.js'
     %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 <script type="text/javascript">
@@ -61,9 +64,6 @@
     // Start copy projects
     var zeroswfpath='{{ asset('bundles/dafuergetoptgenerator/js/ZeroClipboard.swf') }}'
 </script>
-<script type="text/javascript" src="{{ asset('bundles/dafuergetoptgenerator/js/jquery.zclip.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/dafuergetoptgenerator/js/project.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/dafuergetoptgenerator/js/jquery.placeholder.min.js') }}"></script>
 <script type="text/javascript">
     $('input, textarea').placeholder();
 </script>
