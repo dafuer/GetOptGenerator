@@ -220,7 +220,9 @@ $result.='
     int next_option;
     const char* const short_options = "';
         foreach($this->project->getProjectOptions() as $option){
-            $result.=$option->getShortName().($option->getArguments()==true?':':'');
+            if($option->getShortName()!=null){
+                $result.=$option->getShortName().($option->getArguments()==true?':':'');
+            }
         }
         $result.='" ;
     const struct option long_options[] =
@@ -228,7 +230,7 @@ $result.='
 ';
         $count=1;
         foreach($this->project->getProjectOptions() as $option){
-            $result.='            { "'.$option->getLongName().'", '.($option->getArguments()==true?'1':'0').', NULL, \''.(!is_null($option->getShortName())?$option->getShortName():$count).'\' },
+            $result.='            { "'.$option->getLongName().'", '.($option->getArguments()==true?'1':'0').', NULL, '.(!is_null($option->getShortName())?"'".$option->getShortName()."'":$count).' },
 ';
             $count++;
         }
@@ -255,7 +257,7 @@ $result.='
 ';              
             }else{
             $result.='
-            case \''.(!is_null($option->getShortName())?$option->getShortName():$count).'\' : // ';
+            case '.(!is_null($option->getShortName())?"'".$option->getShortName()."'":$count).' : // ';
                 if($option->getShortName()!==null){
                     $result.='-'.$option->getShortName();
                 }
@@ -287,7 +289,7 @@ $result.='
                             $result.=$option->getOptionName().'=opt_'.$option->getOptionName().'[0];';
                             break;
                         case "boolean":
-                            $result.='if(strcmp(opt_'.$option->getOptionName().',"true") || atoi(opt_'.$option->getOptionName().')==1){
+                            $result.='if(strcmp(opt_'.$option->getOptionName().',"true")==0 || atoi(opt_'.$option->getOptionName().')==1){
                     '.$option->getOptionName().'=1;
                 }else{
                     '.$option->getOptionName().'=0;
@@ -360,7 +362,7 @@ $result.='
         foreach($this->project->getProjectOptions() as $option){
             if($option->getMandatory()==true){
                   if($mandatory_options!=0)  $result.=' || ';        
-                  $result.='opt_'.$option->getLongName().'==0';
+                  $result.='opt_'.$option->getOptionName().'==0';
                   $mandatory_options++;
             }            
         }
