@@ -287,13 +287,21 @@ $result.='
                             $result.=$option->getOptionName().'=atof(opt_'.$option->getOptionName().');';
                             break;
                         case "char":
+$result.='if(strlen(opt_'.$option->getOptionName().')!=1){
+                    printf("'.$option->getOptionName().' must be a one character\n");
+                    exit(-1); 
+                }
+                ';                            
                             $result.=$option->getOptionName().'=opt_'.$option->getOptionName().'[0];';
                             break;
                         case "boolean":
                             $result.='if(strcmp(opt_'.$option->getOptionName().',"true")==0 || atoi(opt_'.$option->getOptionName().')==1){
                     '.$option->getOptionName().'=1;
-                }else{
+                }else if(strcmp(opt_'.$option->getOptionName().',"false")==0 || atoi(opt_'.$option->getOptionName().')==0){
                     '.$option->getOptionName().'=0;
+                }else {
+                    printf("'.$option->getOptionName().' is not a valid boolean (0,1,true or false are acepted)\n");
+                    exit(-1);                    
                 }';
                             break;
                         case "string":
